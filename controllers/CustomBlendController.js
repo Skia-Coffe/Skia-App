@@ -2,6 +2,7 @@
 const CustomBlend = require('../models/CustomBlendModel');
 const UserModel = require('../models/UserModel');
 const uuid = require('uuid');
+
 const getCustomBlends = async (req, res) => {
     try {
         const customBlends = await CustomBlend.find({});
@@ -29,6 +30,7 @@ const createCustomBlend = async (req, res) => {
         blendId: "SkiaCustom-"+ uuid.v4()
         
     });
+    
     res.status(201).json(newCustomBlend);
 }
 
