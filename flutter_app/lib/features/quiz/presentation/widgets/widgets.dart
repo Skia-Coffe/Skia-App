@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/questions_page.dart';
-import 'package:skia_coffee/features/quiz/presentation/providers/quiz_provider.dart';
+import 'package:skia_coffee/features/quiz/presentation/bloc/quiz_provider.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});

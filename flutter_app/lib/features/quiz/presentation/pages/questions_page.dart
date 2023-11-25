@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
-import 'package:skia_coffee/features/quiz/presentation/providers/quiz_provider.dart';
+import 'package:skia_coffee/features/quiz/presentation/bloc/quiz_provider.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/next_button.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/option_card.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
