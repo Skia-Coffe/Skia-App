@@ -1,0 +1,16 @@
+const String path = "assets/icons"; //icons
+const icRightArrow = "$path/right_arrow.svg";
+const icHome = "$path/home_icon.svg";
+const icProduct = "$path/product_icon.svg";
+const icProfile = "$path/profile_icon.svg";
+const icGoogle = "assets/icons/google_icon.svg";
+const icBlend = "assets/icons/custom_blend_icon.svg";
+const iclogo = "assets/icons/logo_ion.svg";
+const icCoffeePacket = "assets/icons/coffee_packet_icon.svg";
+const icBgCorousel1 = "$path/bg_corousel1.svg";
+const icCoffeeBean = "$path/coffee_bean.svg";
+const icCoffeeBeanBox = "$path/coffe_bean_box.svg";
+const icCoffeeBeanStar = "$path/coffe_bean_star.svg";
+const icDeliveryTruck = "$path/delivery_truck_icon.svg";
+const icLiveOrder = "$path/live_order_icon.svg";
+const icTick = "$path/tick_icon.svg";

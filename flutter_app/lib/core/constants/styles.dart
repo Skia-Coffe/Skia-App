@@ -1,0 +1,4 @@
+const regular = "SFPRODISPLAYREGULAR";
+const semibold = "SFPRODISPLAYSEMIBOLDITALIC";
+const medium = "SFPRODISPLAYMEDIUM";
+const bold = "SFPRODISPLAYBOLD";
