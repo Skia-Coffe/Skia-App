@@ -54,6 +54,8 @@ dependencies:
   cached_network_image: ^3.3.0
   build_runner: ^2.4.6
   floor_generator: ^1.4.2
+  dio: ^5.3.4
+  json_serializable: ^6.7.1
   
   
 

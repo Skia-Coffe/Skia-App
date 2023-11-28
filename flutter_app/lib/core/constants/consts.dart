@@ -2,6 +2,9 @@ export './assets_images.dart';
 export './colors.dart';
 export './styles.dart';
 export './texts.dart';
+
+const String baseUrl = "http://localhost/8000";
+
 // void changeScreen(BuildContext context) {
 //     Navigator.push(
 //         context,
