@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
+import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_bloc.dart';
+import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_event.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/questions_page.dart';
-import 'package:skia_coffee/features/quiz/presentation/bloc/quiz_provider.dart';
+import 'package:skia_coffee/injection_container.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -31,8 +33,11 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidgetQuiz> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider(
-                create: (context) => QuizProvider(),
+            // builder: (context) => ChangeNotifierProvider(
+            //     create: (context) => QuizProvider(),
+            //     child: const QuestionPage())));
+            builder: (context) => BlocProvider<RemoteQuizBloc>(
+                create: (context) => s1()..add(const GetQuizzes()),
                 child: const QuestionPage())));
   }
 

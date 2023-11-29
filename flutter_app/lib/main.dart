@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/skeleton/splashscreen1.dart';
+import 'package:skia_coffee/injection_container.dart';
 
-void main() {
+Future<void> main() async {
+  await initializeDependencies();
   runApp(const MyApp());
 }
 
