@@ -6,7 +6,6 @@ import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_s
 
 class RemoteQuizBloc extends Bloc<RemoteQuizEvent, RemoteQuizState> {
   final GetQuizUseCase _getQuizUseCase;
-
   RemoteQuizBloc(this._getQuizUseCase) : super(const RemoteQuizStateLoading()) {
     on<GetQuizzes>(onGetQuizzes);
   }
@@ -19,6 +18,7 @@ class RemoteQuizBloc extends Bloc<RemoteQuizEvent, RemoteQuizState> {
     }
 
     if (dataState is DataFailed) {
+      print(dataState.error!.message);
       emit(RemoteQuizStateError(dataState.error!));
     }
   }

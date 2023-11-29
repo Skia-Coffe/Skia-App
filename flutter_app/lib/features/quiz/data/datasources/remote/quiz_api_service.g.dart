@@ -13,7 +13,7 @@ class _QuizApiService implements QuizApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost/8000';
+    _dio.options.baseUrl = baseUrl ?? 'http://192.168.153.216:50812';
   }
 
   final Dio _dio;
@@ -25,8 +25,8 @@ class _QuizApiService implements QuizApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<QuizModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -39,12 +39,11 @@ class _QuizApiService implements QuizApiService {
               data: _data,
             )
             .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => QuizModel.fromJson(i as Map<String, dynamic>))
+              baseUrl: _dio.options.baseUrl,
+            )));
+    List<QuizModel> value = ((_result.data as List<dynamic>?) ?? [])
+        .map<QuizModel>(
+            (dynamic i) => QuizModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
@@ -61,22 +60,5 @@ class _QuizApiService implements QuizApiService {
       }
     }
     return requestOptions;
-  }
-
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
-    if (baseUrl == null || baseUrl.trim().isEmpty) {
-      return dioBaseUrl;
-    }
-
-    final url = Uri.parse(baseUrl);
-
-    if (url.isAbsolute) {
-      return url.toString();
-    }
-
-    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

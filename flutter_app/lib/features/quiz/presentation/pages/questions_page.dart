@@ -29,7 +29,7 @@ class _QuestionPageState extends State<QuestionPage> {
   int index = 0;
   int l = -2;
   void nextQuestion() {
-    if (index == l) {
+    if (index == l - 1) {
       changeScreen(context);
       return;
     }
@@ -75,6 +75,7 @@ class _QuestionPageState extends State<QuestionPage> {
         builder: (_, state) {
           if (state is RemoteQuizStateLoading) {
             logger.i(state.quizzes.toString());
+            logger.i("Loading..."); // Add log here
             return const Center(
               child: CupertinoActivityIndicator(color: textColor),
             );
