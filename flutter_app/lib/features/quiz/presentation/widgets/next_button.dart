@@ -3,8 +3,10 @@ import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
 
 class NextButtonQuiz extends StatelessWidget {
-  const NextButtonQuiz({super.key, required this.nextQuestion});
+  const NextButtonQuiz(
+      {super.key, required this.nextQuestion, required this.btnText});
   final VoidCallback nextQuestion;
+  final String btnText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,10 +23,10 @@ class NextButtonQuiz extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               )),
-          child: const Text(
-            "Next",
-            style:
-                TextStyle(fontFamily: bold, fontSize: 14, color: Colors.white),
+          child: Text(
+            btnText,
+            style: const TextStyle(
+                fontFamily: bold, fontSize: 14, color: Colors.white),
           ),
         ),
       ),

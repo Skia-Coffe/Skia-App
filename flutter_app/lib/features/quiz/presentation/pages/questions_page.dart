@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/quiz_provider.dart';
@@ -28,11 +29,18 @@ class _QuestionPageState extends State<QuestionPage> {
 
   int index = 0;
   int l = -2;
+  String btnText = "Next";
   void nextQuestion() {
     if (index == l - 1) {
       changeScreen(context);
       return;
     }
+
+    if (index == l - 2) {
+      btnText = "Recommend";
+      return;
+    }
+
     setState(() {
       index++;
     });
@@ -40,42 +48,13 @@ class _QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    // var quizProvider = Provider.of<QuizProvider>(context);
-
-    // quizProvider.addQuestion(Question(
-    //   id: '1',
-    //   options: ['Fruity', 'Nutty', 'Chocolatey'],
-    //   title: "What flavor profile do you prefer?",
-    // ));
-    // quizProvider.addQuestion(Question(
-    //   id: '1',
-    //   options: ['Light', 'Medium', 'Dark'],
-    //   title: "What is your roast preferences?",
-    // ));
-    // quizProvider.addQuestion(Question(
-    //   id: '1',
-    //   options: ['French press', 'Pour-over', 'Drip', 'Espresso'],
-    //   title: "What is your brewing method?",
-    // ));
-    // quizProvider.addQuestion(Question(
-    //   id: '1',
-    //   options: ['Mild', 'Moderate', 'Real caffeine punch'],
-    //   title: "How strong do you like your coffee?",
-    // ));
-    // quizProvider.addQuestion(Question(
-    //   id: '1',
-    //   options: ['Vanilla', 'Vanilla', 'Vanilla', 'None'],
-    //   title: "What additional flavors do you like?",
-    // ));
-
-    // l = quizProvider.questions.length;
     _buildBody() {
       Logger logger = Logger();
       return BlocBuilder<RemoteQuizBloc, RemoteQuizState>(
         builder: (_, state) {
           if (state is RemoteQuizStateLoading) {
             logger.i(state.quizzes.toString());
-            logger.i("Loading..."); // Add log here
+            logger.i("Loading...");
             return const Center(
               child: CupertinoActivityIndicator(color: textColor),
             );
@@ -91,6 +70,7 @@ class _QuestionPageState extends State<QuestionPage> {
 
           l = state.quizzes!.length;
           var questions = state.quizzes!;
+          if (l == 1) btnText = "Recommend";
 
           return Center(
             child: Container(
@@ -130,15 +110,28 @@ class _QuestionPageState extends State<QuestionPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 30),
                     child: Column(children: [
-                      OptionCard(option: questions[index].option1!),
-                      OptionCard(option: questions[index].option2!),
-                      OptionCard(option: questions[index].option3!),
-                      OptionCard(option: questions[index].option4!),
+                      OptionCard(
+                          option: questions[index].option1!,
+                          id: 1,
+                          index: index),
+                      OptionCard(
+                          option: questions[index].option2!,
+                          id: 2,
+                          index: index),
+                      OptionCard(
+                          option: questions[index].option3!,
+                          id: 3,
+                          index: index),
+                      OptionCard(
+                          option: questions[index].option4!,
+                          id: 4,
+                          index: index),
                     ]),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: NextButtonQuiz(nextQuestion: nextQuestion),
+                    child: NextButtonQuiz(
+                        nextQuestion: nextQuestion, btnText: btnText),
                   ),
                 ],
               ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-import 'package:get/utils.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/core/resources/data_state.dart';
@@ -11,6 +10,7 @@ import 'package:skia_coffee/features/quiz/data/datasources/remote/quiz_api_servi
 import 'package:skia_coffee/features/quiz/data/models/quiz_model.dart';
 
 class QuizRepositoryImpl implements QuizReprository {
+  // ignore: unused_field
   final QuizApiService _quizApiService;
   QuizRepositoryImpl(this._quizApiService);
 
