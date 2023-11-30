@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skia_coffee/core/resources/data_state.dart';
 import 'package:skia_coffee/features/recommedations/business/usecases/get_recommendations.dart';
 import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_quiz_event.dart';
-import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_quiz_state.dart';
+import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_recommendations_state.dart';
 
 class RemoteRecommendationBloc
     extends Bloc<RemoteRecommendationEvent, RemoteRecommendationState> {

@@ -3,7 +3,8 @@ import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_page.dart';
 
 class CoffeeCard extends StatelessWidget {
-  const CoffeeCard({super.key});
+  final String name, price;
+  const CoffeeCard({super.key, required this.name, required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +39,22 @@ class CoffeeCard extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(8, 8, 8, 1),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 1),
               child: Text(
-                "Toraja Sulawesi",
-                style: TextStyle(
+                name,
+                style: const TextStyle(
                     fontFamily: regular,
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w700),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Rs. 300",
-                style: TextStyle(
+                price,
+                style: const TextStyle(
                     fontFamily: regular,
                     color: Colors.black,
                     fontSize: 12,

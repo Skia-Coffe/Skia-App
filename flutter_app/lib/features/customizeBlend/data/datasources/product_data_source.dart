@@ -2,12 +2,12 @@ import 'package:skia_coffee/features/recommedations/presentation/widgets/coffee_
 
 class ProductsData {
   List<CoffeeCard> items = [
-    const CoffeeCard(),
-    const CoffeeCard(),
-    const CoffeeCard(),
-    const CoffeeCard(),
-    const CoffeeCard(),
-    const CoffeeCard(),
-    const CoffeeCard(),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+    const CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
   ];
 }

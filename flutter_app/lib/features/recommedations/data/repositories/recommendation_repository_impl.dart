@@ -17,6 +17,7 @@ class RecommendationRespositoryImp implements RecommendationRepository {
   Future<DataState<List<RecommendationEntity>>> getRecommendations() async {
     Logger logger = Logger();
     SharedPreferences pref = await SharedPreferences.getInstance();
+    logger.i(pref.getString("flavour"));
     RequestModel sendData = RequestModel(
         flavour: pref.getString("flavour"),
         roast: pref.getString("roast"),

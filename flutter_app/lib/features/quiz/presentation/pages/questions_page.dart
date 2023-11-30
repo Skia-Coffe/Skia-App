@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
-import 'package:skia_coffee/features/quiz/presentation/bloc/quiz_provider.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_bloc.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_state.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/next_button.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/option_card.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
+import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_recommendations_bloc.dart';
+import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_quiz_event.dart';
 import 'package:skia_coffee/features/recommedations/presentation/pages/recommend_pages.dart';
+import 'package:skia_coffee/injection_container.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -23,8 +23,13 @@ class QuestionPage extends StatefulWidget {
 
 class _QuestionPageState extends State<QuestionPage> {
   void changeScreen(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RecommendPage()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BlocProvider<RemoteRecommendationBloc>(
+                  create: (context) => s1()..add(const GetRecommendations()),
+                  child: RecommendPage(),
+                )));
   }
 
   int index = 0;
@@ -48,7 +53,7 @@ class _QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    _buildBody() {
+    buildBody() {
       Logger logger = Logger();
       return BlocBuilder<RemoteQuizBloc, RemoteQuizState>(
         builder: (_, state) {
@@ -151,6 +156,6 @@ class _QuestionPageState extends State<QuestionPage> {
           toolbarHeight: 60,
           shadowColor: Colors.white,
         ),
-        body: _buildBody());
+        body: buildBody());
   }
 }

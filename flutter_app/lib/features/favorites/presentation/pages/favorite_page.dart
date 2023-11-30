@@ -39,7 +39,7 @@ class FavoritesPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return const Column(
                     children: [
-                      CoffeeCard(),
+                      CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
                       AddToCartButton(),
                     ],
                   );
