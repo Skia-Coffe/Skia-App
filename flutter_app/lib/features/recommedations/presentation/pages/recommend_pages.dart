@@ -11,6 +11,7 @@ class RecommendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _buildbody() {}
     return Scaffold(
       appBar: AppBar(
         title: const Padding(

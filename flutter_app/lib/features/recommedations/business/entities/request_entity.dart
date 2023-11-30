@@ -18,4 +18,14 @@ class RequestEntity extends Equatable {
   List<Object?> get props {
     return [flavour, roast, brewMethod, strong, additionalFlavour];
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'flavour': flavour,
+      'roast': roast,
+      'brew_method': brewMethod,
+      'strong': strong,
+      'additional_flavour': additionalFlavour,
+    };
+  }
 }
