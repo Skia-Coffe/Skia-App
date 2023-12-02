@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
+import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 
 import '../../../../core/constants/consts.dart';
@@ -15,6 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final controller = Get.put(SignUpController());
+  final repo = Get.put(AuthenticationRepository());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,13 +83,13 @@ class _LoginPageState extends State<LoginPage> {
                     //   ),
                     // ),
                     // const GoogleLoginButton(),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "New User - ",
                             style: TextStyle(
                                 fontFamily: regular,
@@ -94,13 +97,21 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.w400,
                                 color: textLightColor),
                           ),
-                          Text(
-                            "SignUp",
-                            style: TextStyle(
-                                fontFamily: bold,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: textColor),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpPage()));
+                            },
+                            child: const Text(
+                              "SignUp",
+                              style: TextStyle(
+                                  fontFamily: bold,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: textColor),
+                            ),
                           ),
                         ],
                       ),
