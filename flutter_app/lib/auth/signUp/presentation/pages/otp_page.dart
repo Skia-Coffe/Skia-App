@@ -4,10 +4,11 @@ import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
 import 'package:skia_coffee/core/constants/texts.dart';
-import 'package:skia_coffee/features/signUp/presentation/widgets/widgets.dart';
+import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
 
 class OtpVerify extends StatefulWidget {
-  const OtpVerify({super.key});
+  final String verificationId;
+  const OtpVerify({super.key, required this.verificationId});
 
   @override
   State<OtpVerify> createState() => _OtpVerifyState();

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/features/quiz/business/repositories/quiz_repository.dart';
 import 'package:skia_coffee/features/quiz/business/usecases/get_quiz.dart';
 import 'package:skia_coffee/features/quiz/data/datasources/remote/quiz_api_service.dart';

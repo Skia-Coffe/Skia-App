@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
-import 'package:skia_coffee/features/signUp/presentation/pages/signup_pages.dart';
+import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 
 class SplashScreen3 extends StatefulWidget {
   const SplashScreen3({super.key});
@@ -12,7 +12,7 @@ class SplashScreen3 extends StatefulWidget {
 class _SplashScreen3State extends State<SplashScreen3> {
   void changeScreen(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SignUpPage()));
+        context, MaterialPageRoute(builder: (context) => SignUpPage()));
   }
 
   @override

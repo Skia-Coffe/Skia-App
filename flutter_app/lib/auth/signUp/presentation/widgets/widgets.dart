@@ -1,25 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:skia_coffee/auth/signUp/presentation/providers/otp_controller.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/core/constants/icons.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
-import 'package:skia_coffee/features/signUp/presentation/pages/otp_page.dart';
+import 'package:skia_coffee/auth/signUp/presentation/pages/otp_page.dart';
+import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
 
 //editText
 class EditableTextWidget extends StatefulWidget {
+  final TextEditingController _controller;
+
+  const EditableTextWidget(this._controller);
   @override
   _EditableTextWidgetState createState() => _EditableTextWidgetState();
 }
 
 class _EditableTextWidgetState extends State<EditableTextWidget> {
-  final TextEditingController _textEditingController = TextEditingController();
+  // final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Container(
           height: 50,
           width: double.infinity,
@@ -30,8 +37,8 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          child: TextField(
-            controller: _textEditingController,
+          child: TextFormField(
+            controller: widget._controller,
             decoration: const InputDecoration(
               border: InputBorder.none, // Remove default border
               contentPadding: EdgeInsets.all(12.0),
@@ -45,18 +52,16 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
 
 //button
 class ElevatedButtonWidget extends StatefulWidget {
-  const ElevatedButtonWidget({super.key});
+  const ElevatedButtonWidget({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   State<ElevatedButtonWidget> createState() => _ElevatedButtonWidgetState();
 }
 
 class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
-  void changeScreen(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const OtpVerify()));
-  }
-
+  bool loading = false;
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,7 +71,35 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
         height: 50,
         child: ElevatedButton(
           onPressed: () {
-            changeScreen(context);
+            // changeScreen(context);
+            // SignUpController.instance
+            //     .phoneAuthentication(widget.controller.text.trim());
+            // Get.to(const OtpVerify());
+            // changeScreen(context);
+            _auth.verifyPhoneNumber(
+              phoneNumber: widget.controller.text.trim(),
+              verificationCompleted: (credential) async {
+                await _auth.signInWithCredential(credential);
+              },
+              verificationFailed: (e) {
+                if (e.code == 'invalid-phone-number') {
+                  Get.snackbar('Error', 'Invalid Phone Number');
+                } else {
+                  Get.snackbar(
+                      'Error', 'Something went wrong, please try again!');
+                }
+              },
+              codeSent: (verificationId, resendToken) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            OtpVerify(verificationId: verificationId)));
+              },
+              codeAutoRetrievalTimeout: (verificationId) {
+                Get.snackbar('Error', 'Timed out');
+              },
+            );
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,
@@ -140,6 +173,8 @@ class OtpLayout extends StatefulWidget {
 }
 
 class _OtpLayoutState extends State<OtpLayout> {
+  var otp;
+  int cnt = 0;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -163,6 +198,11 @@ class _OtpLayoutState extends State<OtpLayout> {
                   onChanged: (value) {
                     if (value.length == 1) {
                       FocusScope.of(context).nextFocus();
+                      otp += value;
+                      cnt++;
+                      if (cnt == 4) {
+                        OTPController.instance.verifyOTP(otp);
+                      }
                     }
                   },
                   decoration: const InputDecoration(
@@ -215,8 +255,9 @@ class _OtpLayoutState extends State<OtpLayout> {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: TextField(
+              child: TextFormField(
                   onChanged: (value) {
+                    otp += value;
                     if (value.length == 1) {
                       FocusScope.of(context).nextFocus();
                     }

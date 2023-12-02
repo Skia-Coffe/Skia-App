@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:682200561928:android:c02a4990585991ac2a54bd",
+        "android_client_info": {
+          "package_name": "com.SkiaApp.skia_coffee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKgi6wQmBJ_rzGrlthDC3uzJmi9wTe_GA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:682200561928:android:0de77cc37561a28b2a54bd",
         "android_client_info": {
           "package_name": "com.example.skia_coffee"
