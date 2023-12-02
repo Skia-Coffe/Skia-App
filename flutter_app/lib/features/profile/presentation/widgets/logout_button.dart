@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:skia_coffee/features/skeleton/splashscreen1.dart';
 
 import '../../../../core/constants/consts.dart';
 
@@ -10,6 +13,8 @@ class LogOutButton extends StatefulWidget {
 }
 
 class _LogOutButtonState extends State<LogOutButton> {
+  var _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,7 +22,10 @@ class _LogOutButtonState extends State<LogOutButton> {
       child: SizedBox(
         height: 50,
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            _auth.signOut();
+            Get.offAll(SplashScreen1());
+          },
           style: TextButton.styleFrom(
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(

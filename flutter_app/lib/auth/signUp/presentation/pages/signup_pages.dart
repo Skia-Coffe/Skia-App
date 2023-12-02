@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/countries.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
@@ -10,6 +12,16 @@ class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
   final controller = Get.put(SignUpController());
   final repo = Get.put(AuthenticationRepository());
+  String selectedCountryCode = '+91';
+  void onCountryChange(Country country) {
+    selectedCountryCode = country.dialCode;
+  }
+
+  String getPhoneNo() {
+    String phoneNumber = controller.phoneNo.text;
+    String fullPhoneNumber = '$selectedCountryCode$phoneNumber';
+    return fullPhoneNumber;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +91,21 @@ class SignUpPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    EditableTextWidget(controller.phoneNo),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: IntlPhoneField(
+                        controller: controller.phoneNo,
+                        initialCountryCode: 'IN',
+                        onCountryChanged: onCountryChange,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: textColor)), // Remove default border
+                          contentPadding: const EdgeInsets.all(12.0),
+                        ),
+                      ),
+                    ),
 
                     // const Padding(
                     //   padding: EdgeInsets.all(8.0),
@@ -140,7 +166,9 @@ class SignUpPage extends StatelessWidget {
                 // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: ElevatedButtonWidget(controller: controller.phoneNo),
+                  child: ElevatedButtonWidget(
+                      controller: controller.phoneNo,
+                      phoneNumber: getPhoneNo()),
                 ),
               ]),
         ),

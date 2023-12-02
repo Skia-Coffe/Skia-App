@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/providers/otp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
@@ -9,8 +13,8 @@ import 'package:skia_coffee/core/constants/texts.dart';
 import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
 
 class OtpVerify extends StatefulWidget {
-  // final String verificationId;
-  OtpVerify({super.key});
+  final String phoneNo;
+  OtpVerify({super.key, required this.phoneNo});
   final controller = Get.put(OTPController());
 
   @override
@@ -18,6 +22,89 @@ class OtpVerify extends StatefulWidget {
 }
 
 class _OtpVerifyState extends State<OtpVerify> {
+  int _otpTimer = 60; // Set the initial timer duration in seconds
+  late Timer _timer;
+  bool _timerActive = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the timer
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_otpTimer > 0) {
+          _otpTimer--;
+        } else {
+          _timer.cancel(); // Cancel the timer when it reaches 0
+          _timerActive = false;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    // Start the timer if not already active
+    if (!_timerActive) {
+      _otpTimer = 60; // Reset the timer duration
+      _timerActive = true;
+      _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          if (_otpTimer > 0) {
+            _otpTimer--;
+          } else {
+            timer.cancel(); // Cancel the timer when it reaches 0
+            _timerActive = false;
+          }
+        });
+      });
+    }
+  }
+
+  Future<void> resendM() async {
+    _otpTimer = 60; //_start - 1;
+    setState(() {
+      startTimer();
+    });
+    textWidgetInfo();
+
+    // Enter hare your API Code to resend the OTP on your Mobile number.
+    SignUpController.instance.phoneAuthentication(widget.phoneNo);
+  }
+
+  Widget textWidgetInfo() {
+    if (_otpTimer > 0) {
+      return Text(
+        "Resend in $_otpTimer sec",
+        style: GoogleFonts.rubik(
+          fontSize: 14,
+          color: textColor,
+        ),
+      );
+    } else {
+      return InkWell(
+        child: Text(
+          "Resend", //
+          style: GoogleFonts.rubik(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: textColor,
+          ),
+        ),
+        onTap: () {
+          startTimer();
+          resendM();
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -76,7 +163,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          " +91 1234567890",
+                          widget.phoneNo,
                           style: GoogleFonts.rubik(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -85,30 +172,42 @@ class _OtpVerifyState extends State<OtpVerify> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          "Change",
-                          style: GoogleFonts.rubik(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                            color: Colors.red,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()));
+                          },
+                          child: Text(
+                            "Change",
+                            style: GoogleFonts.rubik(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   const OtpLayout(),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Text(
+                  //     "Resend OTP  1:07",
+                  //     style: GoogleFonts.rubik(
+                  //       fontSize: 14,
+                  //       fontWeight: FontWeight.w500,
+                  //       fontStyle: FontStyle.normal,
+                  //       color: Colors.black26,
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Resend OTP  1:07",
-                      style: GoogleFonts.rubik(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black26,
-                      ),
-                    ),
+                    child: textWidgetInfo(),
                   )
                 ],
               ),

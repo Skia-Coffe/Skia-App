@@ -34,7 +34,7 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
           decoration: BoxDecoration(
             border: Border.all(
               color: textColor,
-              width: 2,
+              width: 1,
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -53,8 +53,10 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
 
 //button
 class ElevatedButtonWidget extends StatefulWidget {
-  const ElevatedButtonWidget({super.key, required this.controller});
+  const ElevatedButtonWidget(
+      {super.key, required this.controller, required this.phoneNumber});
   final TextEditingController controller;
+  final String phoneNumber;
 
   @override
   State<ElevatedButtonWidget> createState() => _ElevatedButtonWidgetState();
@@ -62,6 +64,7 @@ class ElevatedButtonWidget extends StatefulWidget {
 
 class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
   bool loading = false;
+
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -87,8 +90,8 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
             // }
             // changeScreen(context);
             SignUpController.instance
-                .phoneAuthentication(widget.controller.text.trim());
-            Get.to(OtpVerify());
+                .phoneAuthentication(widget.phoneNumber.trim());
+            Get.to(OtpVerify(phoneNo: widget.phoneNumber));
             // changeScreen(context);
             // _auth.verifyPhoneNumber(
             //   phoneNumber: widget.controller.text.trim(),
@@ -320,10 +323,6 @@ class _OtpLayoutState extends State<OtpLayout> {
             appContext: context,
             length: 6, // Set the length of the OTP
             onChanged: (value) {
-              // Handle changes in the OTP input
-              // if (value.length == 1) {
-              //   FocusScope.of(context).nextFocus();
-              // }
               print(value);
             },
             onCompleted: (value) {
