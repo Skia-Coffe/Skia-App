@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get to => Get.find();
@@ -17,7 +18,8 @@ class AuthenticationRepository extends GetxController {
           if (e.code == 'invalid-phone-number') {
             Get.snackbar('Error', 'Invalid Phone Number');
           } else {
-            Get.snackbar('Error', 'Something went wrong, please try again!');
+            Get.snackbar('Error', e.toString());
+            Get.to(() => const LoginPage());
           }
         },
         codeSent: (verificationId, resendToken) {
@@ -43,7 +45,7 @@ class AuthenticationRepository extends GetxController {
       );
       return credentials.user != null;
     } catch (e) {
-      print('Error during OTP verification: $e');
+      Get.snackbar('Error during OTP verification:', e.toString());
       return false;
       // Handle the error as needed
     }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/skeleton/splashscreen1.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
+          return GetMaterialApp(
             title: 'Skia_coffee',
             theme: ThemeData(
               colorScheme: const ColorScheme.light(

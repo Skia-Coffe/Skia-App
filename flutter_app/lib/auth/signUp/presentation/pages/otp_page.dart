@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skia_coffee/auth/signUp/presentation/providers/otp_controller.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
@@ -7,8 +9,9 @@ import 'package:skia_coffee/core/constants/texts.dart';
 import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
 
 class OtpVerify extends StatefulWidget {
-  final String verificationId;
-  const OtpVerify({super.key, required this.verificationId});
+  // final String verificationId;
+  OtpVerify({super.key});
+  final controller = Get.put(OTPController());
 
   @override
   State<OtpVerify> createState() => _OtpVerifyState();

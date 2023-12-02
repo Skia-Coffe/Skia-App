@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
@@ -91,13 +92,13 @@ class SignUpPage extends StatelessWidget {
                     //   ),
                     // ),
                     // const GoogleLoginButton(),
-                    const Padding(
+                    Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 40, horizontal: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             "Existing User - ",
                             style: TextStyle(
                                 fontFamily: regular,
@@ -105,13 +106,21 @@ class SignUpPage extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color: textLightColor),
                           ),
-                          Text(
-                            "Log IN",
-                            style: TextStyle(
-                                fontFamily: bold,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: textColor),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()));
+                            },
+                            child: const Text(
+                              "Log IN",
+                              style: TextStyle(
+                                  fontFamily: bold,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: textColor),
+                            ),
                           ),
                         ],
                       ),
