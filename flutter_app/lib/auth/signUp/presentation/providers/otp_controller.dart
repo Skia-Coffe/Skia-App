@@ -7,6 +7,9 @@ class OTPController extends GetxController {
 
   void verifyOTP(String otp) async {
     var isVerified = await AuthenticationRepository.to.verifyOTP(otp);
+    if (isVerified) {
+      Get.snackbar("Welcome!", "You logged in Successfully !");
+    }
     isVerified ? Get.offAll(const QuizPage()) : Get.back();
   }
 }
