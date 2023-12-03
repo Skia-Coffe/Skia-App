@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/skeleton/splashscreen3.dart';
 
@@ -43,15 +45,20 @@ class _SplashScreen2State extends State<SplashScreen2> {
                         16, 50, 16, 16), // Adjust the padding as needed
                     child: Image.asset("assets/images/logo.png"),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
                         16, 50, 16, 16), // Adjust the padding as needed
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4D2212),
-                          fontSize: 22),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.offAll(const LoginPage());
+                      },
+                      child: const Text(
+                        "Skip",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4D2212),
+                            fontSize: 22),
+                      ),
                     ),
                   ),
                 ],
