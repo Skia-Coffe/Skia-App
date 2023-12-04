@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 
@@ -17,6 +18,7 @@ class AuthenticationRepository extends GetxController {
         verificationFailed: (e) {
           if (e.code == 'invalid-phone-number') {
             Get.snackbar('Error', 'Invalid Phone Number');
+            Get.to(const LoginPage());
           } else {
             Get.snackbar('Error', e.toString());
             Get.to(() => const LoginPage());
