@@ -5,11 +5,12 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 import 'package:skia_coffee/features/skeleton/splashscreen1.dart';
+import 'package:skia_coffee/firebase_options.dart';
 import 'package:skia_coffee/injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDependencies();
   runApp(const MyApp());
 }
