@@ -37,7 +37,7 @@ class SignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+                  padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
                   child: Image.asset(icLogo),
                 ),
                 Column(

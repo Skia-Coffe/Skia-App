@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_bloc.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_event.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/questions_page.dart';
+import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 import 'package:skia_coffee/injection_container.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -84,7 +86,9 @@ class _BorderedButtonState extends State<BorderedButton> {
         width: 280,
         height: 50,
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(const BottomNavigation(curHome: 0));
+          },
           style: TextButton.styleFrom(
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(

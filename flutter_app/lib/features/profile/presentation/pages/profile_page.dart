@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/profile/presentation/widgets/iteem_widget.dart';
 import 'package:skia_coffee/features/profile/presentation/widgets/logout_button.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late SharedPreferences _prefs;
+  String _savedText = '';
+  void initState() {
+    super.initState();
+    _initPrefs();
+  }
+
+  Future<void> _initPrefs() async {
+    _prefs = await SharedPreferences.getInstance();
+    // Retrieve the saved text from SharedPreferences
+    _savedText = _prefs.getString('UserName') ?? 'Name';
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +80,11 @@ class ProfilePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: 120,
                       child: Text(
-                        "Hey Vishal",
-                        style: TextStyle(
+                        "Hey $_savedText",
+                        style: const TextStyle(
                           color: textColor,
                           fontSize: 40,
                           fontFamily: bold,
