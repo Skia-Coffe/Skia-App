@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get to => Get.find();
   final _auth = FirebaseAuth.instance;
   var verificationId = ''.obs;
+  Logger logger = Logger();
 
   Future<void> phoneAuthentication(String phoneNo) async {
     try {
@@ -21,6 +23,7 @@ class AuthenticationRepository extends GetxController {
             Get.to(const LoginPage());
           } else {
             Get.snackbar('Error', e.toString());
+            logger.i(e.toString());
             Get.to(() => const LoginPage());
           }
         },
