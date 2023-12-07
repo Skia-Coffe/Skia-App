@@ -31,5 +31,34 @@ const createUser = async (req, res) => {
   }
 };
 
-// another api will be for the user auth waiting for the ui to be ready.
-module.exports = { createUser };
+//another api for custom user creation through firebase
+
+const createUserFirebase = async (req, res) => {
+  const {userID , name , phoneNumber} = req.body;
+  if (!userID|| !name || !phoneNumber) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
+  const UserExists = await UserModel.findOne({ userID, phoneNumber});
+  if(UserExists){
+    return res.status(400).json({ msg: "User already exists" });
+  }
+
+  const newUser = await UserModel.create({
+    userID,
+    name,
+    phoneNumber
+  });
+
+  if (newUser) {
+    res.status(201).json({
+      _id: newUser._id,
+      UserId: newUser.userID,
+      name: newUser.name,
+      phoneNumber: newUser.phoneNumber
+    });
+
+
+  } 
+}
+module.exports = { createUser , createUserFirebase};

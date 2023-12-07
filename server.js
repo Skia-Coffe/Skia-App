@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/user", UserRouter);
 app.use("/order", OrderRouter);
 app.use("/product", ProductRouter);
-app.use("/wishlist/:user_id", WishListRouter);
+app.use("/wishlist", WishListRouter);
 app.use("/quiz" , QuizRouter);
 app.use("/customblend" , CustomBlendRouter);
 
