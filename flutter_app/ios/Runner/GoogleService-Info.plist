@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCbCuRXW2K2uvFoioc4s3APnRbGDQZKDN8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>682200561928</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.skiaCoffee</string>
+	<key>PROJECT_ID</key>
+	<string>skia-coffee-login-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>skia-coffee-login-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:682200561928:ios:f74b1639ef5e11b12a54bd</string>
+</dict>
+</plist>
