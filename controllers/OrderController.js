@@ -8,6 +8,7 @@ const createOrder = async (req, res) => {
   if (!user || !products) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
+  
   const orderID = "Skia-" + uuidv4(); // Generate a UUID v4
   const newOrder = await OrderSchema.create({ orderID, user, products });
 
