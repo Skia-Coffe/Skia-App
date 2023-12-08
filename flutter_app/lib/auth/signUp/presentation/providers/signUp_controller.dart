@@ -15,7 +15,6 @@ class SignUpController extends GetxController {
     pref.setString('UserName', name.text);
     logger.i("Authentication initialed");
     logger.i(phoneNo);
-    this.phoneNo.text = '';
     AuthenticationRepository.to.phoneAuthentication(phoneNo);
   }
 }
