@@ -17,18 +17,21 @@ const UserSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true
+   
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    
     lowercase: true
   },
-  userId: {
-    type: String,
-    unique: true
-  }
+
+  userID:{
+    type:String,
+    unique:true,
+    
+  },
+  
+  
 });
 
 const user = mongoose.model("user", UserSchema);
