@@ -39,7 +39,7 @@ const createUserFirebase = async (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  const UserExists = await UserModel.findOne({ userID});
+  const UserExists = await UserModel.findOne({  userID });
   if(UserExists){
     return res.status(400).json({ msg: "User already exists" });
   }
@@ -61,4 +61,26 @@ const createUserFirebase = async (req, res) => {
 
   } 
 }
-module.exports = { createUser , createUserFirebase};
+
+// finding user by phone number
+const getUserByPhoneNumber = async (req, res) => {
+  const{phoneNumber} = req.body;
+  if(!phoneNumber){
+    return res.status(400).json({msg:"Please enter all fields"});
+  }
+
+  const UserExists = await UserModel.findOne({phoneNumber});
+  if(UserExists){
+    return res.status(200).json({
+      _id: UserExists._id,
+      UserId: UserExists.userID,
+      name: UserExists.name,
+      phoneNumber: UserExists.phoneNumber
+    });
+  }
+  else{
+    return res.status(400).json({msg:"User does not exist"});
+  }
+
+}
+module.exports = { createUser , createUserFirebase, getUserByPhoneNumber};
