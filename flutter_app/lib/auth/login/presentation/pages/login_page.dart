@@ -4,7 +4,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:skia_coffee/auth/login/presentation/widgets/login_button_widget.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
-import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 
 import '../../../../core/constants/consts.dart';

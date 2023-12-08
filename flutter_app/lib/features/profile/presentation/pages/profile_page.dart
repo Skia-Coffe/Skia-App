@@ -22,8 +22,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
     // Retrieve the saved text from SharedPreferences
-    _savedText = _prefs.getString('UserName') ?? 'Name';
-    setState(() {});
+    setState(() {
+      _savedText = _prefs.getString('UserName') ?? '';
+    });
   }
 
   @override

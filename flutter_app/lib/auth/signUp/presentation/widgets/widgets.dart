@@ -4,12 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:skia_coffee/auth/signUp/presentation/providers/otp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/controllers/otp_controller.dart';
+import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/core/constants/icons.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/otp_page.dart';
-import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 
 //editText
 class EditableTextWidget extends StatefulWidget {
@@ -66,6 +67,8 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
   bool loading = false;
 
   final _auth = FirebaseAuth.instance;
+  Logger logger = Logger();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -78,45 +81,15 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
             setState(() {
               loading = true;
             });
-            // try {
-            //   Get.to(const OtpVerify(verificationId: "123413"));
-            // } catch (error) {
-            //   // Handle errors or show a message
-            //   print("Error: $error");
-            // } finally {
-            //   setState(() {
-            //     loading = false;
-            //   });
-            // }
-            // changeScreen(context);
-            SignUpController.instance
-                .phoneAuthentication(widget.phoneNumber.trim());
-            Get.to(OtpVerify(phoneNo: widget.phoneNumber));
-            // changeScreen(context);
-            // _auth.verifyPhoneNumber(
-            //   phoneNumber: widget.controller.text.trim(),
-            //   verificationCompleted: (credential) async {
-            //     await _auth.signInWithCredential(credential);
-            //   },
-            //   verificationFailed: (e) {
-            //     if (e.code == 'invalid-phone-number') {
-            //       Get.snackbar('Error', 'Invalid Phone Number');
-            //     } else {
-            //       Get.snackbar(
-            //           'Error', 'Something went wrong, please try again!');
-            //     }
-            //   },
-            //   codeSent: (verificationId, resendToken) {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) =>
-            //                 OtpVerify(verificationId: verificationId)));
-            //   },
-            //   codeAutoRetrievalTimeout: (verificationId) {
-            //     Get.snackbar('Error', 'Timed out');
-            //   },
-            // );
+
+            if (await AuthenticationRepository.to
+                    .checkUser(widget.phoneNumber.trim()) ==
+                false) {
+              logger.i("back");
+              SignUpController.instance
+                  .phoneAuthentication(widget.phoneNumber.trim());
+              Get.to(OtpVerify(phoneNo: widget.phoneNumber));
+            }
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,
