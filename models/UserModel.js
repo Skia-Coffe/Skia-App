@@ -17,18 +17,15 @@ const UserSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-   
   },
   email: {
     type: String,
-    
     lowercase: true
   },
 
   userID:{
     type:String,
     unique:true,
-    
   },
   
   

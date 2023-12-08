@@ -4,8 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 // this will allow us to use the .env file
 
-
-const port = process.env.PORT;
+const port = process.env.PORT ;
 const UserRouter = require("./routes/UserRouter");
 const OrderRouter = require("./routes/OrderRoutes");
 const ProductRouter = require("./routes/ProductRouter");

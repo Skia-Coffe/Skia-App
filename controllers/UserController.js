@@ -39,7 +39,7 @@ const createUserFirebase = async (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  const UserExists = await UserModel.findOne({ userID, phoneNumber});
+  const UserExists = await UserModel.findOne({ userID});
   if(UserExists){
     return res.status(400).json({ msg: "User already exists" });
   }
