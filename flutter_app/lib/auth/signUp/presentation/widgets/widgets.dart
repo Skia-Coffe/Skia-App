@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/otp_controller.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
@@ -89,6 +90,8 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
               SignUpController.instance
                   .phoneAuthentication(widget.phoneNumber.trim());
               Get.to(OtpVerify(phoneNo: widget.phoneNumber));
+            } else {
+              Get.offAll(const LoginPage());
             }
           },
           style: ElevatedButton.styleFrom(

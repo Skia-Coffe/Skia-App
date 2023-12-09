@@ -80,10 +80,12 @@ class AuthenticationRepository extends GetxController {
             body: jsonEncode(userModel.toJson()));
 
         logger.i(response.statusCode.toString());
-        if (response.statusCode == 200) {
+        logger.i(userID);
+        logger.i(name);
+        if (response.statusCode == 201) {
           Get.snackbar("Welcome!", "User succesfully registered.");
         } else {
-          Get.snackbar("Welcome!", "You have logged in successfully.");
+          Get.snackbar("Already an User", "You have logged in successfully!");
         }
       } catch (e) {
         logger.i(e.toString());
@@ -112,12 +114,11 @@ class AuthenticationRepository extends GetxController {
 
         Get.snackbar("Already User",
             "User already exist with this phone number please use other phone or login");
-        Get.offAll(const LoginPage());
+        // Get.offAll(const LoginPage());
         return true;
       } else {
         Map<String, dynamic> responseBody = json.decode(response.body);
         logger.i(responseBody);
-        Get.to(LoginPage());
         return false;
       }
     } catch (e) {
