@@ -34,13 +34,13 @@ const createUser = async (req, res) => {
 //another api for custom user creation through firebase
 
 const createUserFirebase = async (req, res) => {
-  const {userID , name , phoneNumber} = req.body;
-  if (!userID|| !name || !phoneNumber) {
+  const { userID, name, phoneNumber } = req.body;
+  if (!userID || !name || !phoneNumber) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  const UserExists = await UserModel.findOne({  userID });
-  if(UserExists){
+  const UserExists = await UserModel.findOne({ userID });
+  if (UserExists) {
     return res.status(400).json({ msg: "User already exists" });
   }
 
@@ -57,30 +57,72 @@ const createUserFirebase = async (req, res) => {
       name: newUser.name,
       phoneNumber: newUser.phoneNumber
     });
+  }
+};
 
-
-  } 
-}
-
-// finding user by phone number
+//search user by phone number from the parameter
 const getUserByPhoneNumber = async (req, res) => {
-  const{phoneNumber} = req.body;
-  if(!phoneNumber){
-    return res.status(400).json({msg:"Please enter all fields"});
+  const { phoneNumber } = req.params;
+  console.log(phoneNumber);
+  if (!phoneNumber) {
+    return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  const UserExists = await UserModel.findOne({phoneNumber});
-  if(UserExists){
-    return res.status(200).json({
-      _id: UserExists._id,
-      UserId: UserExists.userID,
-      name: UserExists.name,
-      phoneNumber: UserExists.phoneNumber
-    });
+ 
+  try{
+    const UserExists = await UserModel.findOne({ phoneNumber });
+    if (UserExists) {
+      return res.status(200).json({
+        _id: UserExists._id,
+        UserId: UserExists.userID,
+        name: UserExists.name,
+        phoneNumber: UserExists.phoneNumber
+      });
+
+      
+    }
+    else{
+      return res.status(404).json({ msg: "User not found" });
+    }
   }
-  else{
-    return res.status(400).json({msg:"User does not exist"});
+  catch(error){
+    console.log(error);
   }
 
+
+  
+};
+
+// searching user by phone number from the query parameter
+
+const getUserByPhoneNumberQuery = async (req, res) => {
+  const { phoneNumber } = req.query.search;
+  console.log(phoneNumber);
+  if (!phoneNumber) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
+ 
+  try{
+    const UserExists = await UserModel.findOne({ phoneNumber });
+    if (UserExists) {
+      return res.status(200).json({
+        _id: UserExists._id,
+        UserId: UserExists.userID,
+        name: UserExists.name,
+        phoneNumber: UserExists.phoneNumber
+      });
+
+      
+    }
+    else{
+      return res.status(404).json({ msg: "User not found" });
+    }
+  }
+  catch(error){
+    console.log(error);
+  }
 }
-module.exports = { createUser , createUserFirebase, getUserByPhoneNumber};
+
+
+module.exports = { createUser, createUserFirebase , getUserByPhoneNumber , getUserByPhoneNumberQuery};
