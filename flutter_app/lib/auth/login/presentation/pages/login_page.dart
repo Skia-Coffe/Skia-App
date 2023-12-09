@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:skia_coffee/auth/login/controllers/login_controller.dart';
 import 'package:skia_coffee/auth/login/presentation/widgets/login_button_widget.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
@@ -17,7 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controller = Get.put(SignUpController());
+  final controller = Get.put(LoginController());
   final repo = Get.put(AuthenticationRepository());
   String selectedCountryCode = '+91';
   void onCountryChange(Country country) {

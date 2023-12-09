@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skia_coffee/auth/login/controllers/login_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/otp_page.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
@@ -47,15 +48,15 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
               loading = true;
             });
 
-            if (await AuthenticationRepository.to
-                    .checkUser(widget.phoneNumber.trim()) ==
-                true) {
-              SignUpController.instance
-                  .phoneAuthentication(widget.phoneNumber.trim());
-              Get.to(OtpVerify(phoneNo: widget.phoneNumber));
-            } else {
-              Get.snackbar("Oops !", "No such user please signUp");
-            }
+            // if (await AuthenticationRepository.to
+            //         .checkUser(widget.phoneNumber.trim()) ==
+            //     true) {
+            LoginController.instance
+                .phoneAuthentication(widget.phoneNumber.trim());
+            Get.to(OtpVerify(phoneNo: widget.phoneNumber));
+            // } else {
+            //   Get.snackbar("Oops !", "No such user please signUp");
+            // }
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,

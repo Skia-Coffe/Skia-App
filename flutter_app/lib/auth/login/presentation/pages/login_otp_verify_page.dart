@@ -3,25 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
+import 'package:skia_coffee/auth/login/presentation/widgets/login_otp_layout.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/otp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
 import 'package:skia_coffee/core/constants/texts.dart';
-import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
 
-class OtpVerify extends StatefulWidget {
+class LoginOtpVerify extends StatefulWidget {
   final String phoneNo;
-  OtpVerify({super.key, required this.phoneNo});
+  LoginOtpVerify({super.key, required this.phoneNo});
   final controller = Get.put(OTPController());
 
   @override
-  State<OtpVerify> createState() => _OtpVerifyState();
+  State<LoginOtpVerify> createState() => _LoginOtpVerifyState();
 }
 
-class _OtpVerifyState extends State<OtpVerify> {
+class _LoginOtpVerifyState extends State<LoginOtpVerify> {
   int _otpTimer = 60; // Set the initial timer duration in seconds
   late Timer _timer;
   bool _timerActive = false;
@@ -189,7 +188,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                       ],
                     ),
                   ),
-                  const OtpLayout(),
+                  const LoginOtpLayout(),
                   // Padding(
                   //   padding: const EdgeInsets.all(8.0),
                   //   child: Text(

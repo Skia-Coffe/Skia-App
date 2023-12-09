@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/models/firebaserUserDataModel.dart';
 import 'package:skia_coffee/auth/signUp/models/userVerificationModel.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 
 import '../../../core/constants/consts.dart';
 
@@ -89,7 +88,7 @@ class AuthenticationRepository extends GetxController {
       } catch (e) {
         logger.i(e.toString());
         Get.snackbar("Error", "Something went wrong");
-        Get.to(const LoginPage());
+        Get.to(SignUpPage());
       }
     }
   }
@@ -100,11 +99,13 @@ class AuthenticationRepository extends GetxController {
     Map<String, dynamic> requestData = {
       'phoneNumber': phoneNo,
     };
+    UserVerificationModel data = UserVerificationModel(phoneNumber: phoneNo);
     logger.i(requestData['phoneNumber']);
     try {
-      Uri url = Uri.parse(apiUrl).replace(queryParameters: requestData);
+      Uri url = Uri.parse(apiUrl).replace(queryParameters: data.toJson());
 
-      final response = await http.get(url);
+      final response =
+          await http.get(url, headers: {'Content-Type': 'application/json'});
       if (response.statusCode == 200) {
         logger.i(response.body.toString());
         Map<String, dynamic> responseBody = json.decode(response.body);
@@ -116,6 +117,7 @@ class AuthenticationRepository extends GetxController {
       } else {
         Map<String, dynamic> responseBody = json.decode(response.body);
         logger.i(responseBody);
+        Get.to(LoginPage());
         return false;
       }
     } catch (e) {
