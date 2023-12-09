@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skia_coffee/auth/login/controllers/login_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/otp_page.dart';
-import 'package:skia_coffee/auth/signUp/presentation/providers/signUp_controller.dart';
+import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
+import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 
 import '../../../../core/constants/consts.dart';
 
@@ -45,46 +47,16 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
             setState(() {
               loading = true;
             });
-            // try {
-            //   Get.to(const OtpVerify(verificationId: "123413"));
-            // } catch (error) {
-            //   // Handle errors or show a message
-            //   print("Error: $error");
-            // } finally {
-            //   setState(() {
-            //     loading = false;
-            //   });
-            // }
-            // changeScreen(context);
 
-            SignUpController.instance
+            // if (await AuthenticationRepository.to
+            //         .checkUser(widget.phoneNumber.trim()) ==
+            //     true) {
+            LoginController.instance
                 .phoneAuthentication(widget.phoneNumber.trim());
             Get.to(OtpVerify(phoneNo: widget.phoneNumber));
-            // changeScreen(context);
-            // _auth.verifyPhoneNumber(
-            //   phoneNumber: widget.controller.text.trim(),
-            //   verificationCompleted: (credential) async {
-            //     await _auth.signInWithCredential(credential);
-            //   },
-            //   verificationFailed: (e) {
-            //     if (e.code == 'invalid-phone-number') {
-            //       Get.snackbar('Error', 'Invalid Phone Number');
-            //     } else {
-            //       Get.snackbar(
-            //           'Error', 'Something went wrong, please try again!');
-            //     }
-            //   },
-            //   codeSent: (verificationId, resendToken) {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) =>
-            //                 OtpVerify(verificationId: verificationId)));
-            //   },
-            //   codeAutoRetrievalTimeout: (verificationId) {
-            //     Get.snackbar('Error', 'Timed out');
-            //   },
-            // );
+            // } else {
+            //   Get.snackbar("Oops !", "No such user please signUp");
+            // }
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,
