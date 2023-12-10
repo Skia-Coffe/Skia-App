@@ -10,5 +10,4 @@ router.route("/search").get(ProductSearch);
 router.route("/:prod").get(getProductByName);
 
 
-
 module.exports = router;
