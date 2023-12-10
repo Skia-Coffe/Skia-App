@@ -8,6 +8,7 @@ import 'package:skia_coffee/auth/signUp/models/firebaserUserDataModel.dart';
 import 'package:skia_coffee/auth/signUp/models/userVerificationModel.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
+import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
 
 import '../../../core/constants/consts.dart';
 
@@ -77,34 +78,37 @@ class AuthenticationRepository extends GetxController {
       String url = "$baseUrl/user/firebasecreate";
       try {
         final response = await http.post(Uri.parse(url),
+            headers: {'Content-Type': 'application/json'},
             body: jsonEncode(userModel.toJson()));
 
         logger.i(response.statusCode.toString());
         logger.i(userID);
         logger.i(name);
+        logger.i(phoneNumber);
         if (response.statusCode == 201) {
           Get.snackbar("Welcome!", "User succesfully registered.");
+          _auth.signOut();
+          Get.offAll(const QuizPage());
         } else {
+          logger.i(response.body.toString());
+          Get.offAll(const QuizPage());
           Get.snackbar("Already an User", "You have logged in successfully!");
         }
       } catch (e) {
         logger.i(e.toString());
         Get.snackbar("Error", "Something went wrong");
-        Get.to(SignUpPage());
+        Get.off(SignUpPage());
       }
     }
   }
 
   Future<bool> checkUser(String phoneNo) async {
-    String apiUrl = "$baseUrl/user/getuser";
+    String apiUrl = "$baseUrl/user/$phoneNo";
     logger.i("checking started");
-    Map<String, dynamic> requestData = {
-      'phoneNumber': phoneNo,
-    };
-    UserVerificationModel data = UserVerificationModel(phoneNumber: phoneNo);
-    logger.i(requestData['phoneNumber']);
+    logger.i(phoneNo);
+
     try {
-      Uri url = Uri.parse(apiUrl).replace(queryParameters: data.toJson());
+      Uri url = Uri.parse(apiUrl);
 
       final response =
           await http.get(url, headers: {'Content-Type': 'application/json'});

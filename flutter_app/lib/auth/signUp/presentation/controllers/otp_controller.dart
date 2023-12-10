@@ -11,6 +11,6 @@ class OTPController extends GetxController {
       // Get.snackbar("Welcome!", "You logged in Successfully !");
       AuthenticationRepository.to.registerFirebaseUser();
     }
-    isVerified ? Get.offAll(const QuizPage()) : Get.back();
+    // isVerified ? Get.offAll(const QuizPage()) : Get.back();
   }
 }
