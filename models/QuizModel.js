@@ -25,8 +25,8 @@ const quizSchema = new mongoose.Schema({
 
   quizId: {
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    required:true,
   },
 
   

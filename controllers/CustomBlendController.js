@@ -17,7 +17,7 @@ const createCustomBlend = async (req, res) => {
     if (!user || !blendName || !blendInfo || !blendFlavour || !blendRoast) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
-    const userExists = await UserModel.findOne({ _id: user });
+    const userExists = await UserModel.findOne({ userID });
     if (!userExists) {
         return res.status(400).json({ msg: 'User does not exist' });
     }
