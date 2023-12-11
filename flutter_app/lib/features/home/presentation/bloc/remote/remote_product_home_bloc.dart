@@ -12,7 +12,7 @@ class RemoteProductHomeBloc
     on<GetProductsHome>(onGetProductsHome);
   }
 
-  void GetProductsHome(
+  void onGetProductsHome(
       GetProductsHome productHome, Emitter<RemoteProductHomeState> emit) async {
     final dataState = await _getProductUseCase();
 

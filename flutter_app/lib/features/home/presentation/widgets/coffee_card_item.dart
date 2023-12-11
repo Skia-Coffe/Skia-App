@@ -4,7 +4,14 @@ import 'package:skia_coffee/core/constants/styles.dart';
 import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 
 class CoffeCardItem extends StatefulWidget {
-  const CoffeCardItem({super.key});
+  final String coffeeName;
+  final double cost;
+  final String imageUrl;
+  const CoffeCardItem(
+      {super.key,
+      required this.coffeeName,
+      required this.cost,
+      required this.imageUrl});
 
   @override
   State<CoffeCardItem> createState() => _CoffeCardItemState();
@@ -31,29 +38,32 @@ class _CoffeCardItemState extends State<CoffeCardItem> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(45, 16, 45, 0),
                 child: Container(
-                  height: 130,
-                  width: 85,
-                  alignment: Alignment.center,
-                  child: Image.asset(icCoffeeImage),
-                ),
+                    height: 130,
+                    width: 85,
+                    alignment: Alignment.center,
+                    child: Image.asset(icCoffeeImage)
+                    //  Image.network(
+                    //   widget.imageUrl, // Replace with your image URL
+                    // ),
+                    ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(8, 8, 8, 1),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 1),
               child: Text(
-                "Toraja Sulawesi",
-                style: TextStyle(
+                widget.coffeeName,
+                style: const TextStyle(
                     fontFamily: regular,
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w700),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Rs. 300",
-                style: TextStyle(
+                "Rs. ${widget.cost}",
+                style: const TextStyle(
                     fontFamily: regular,
                     color: Colors.black,
                     fontSize: 12,
