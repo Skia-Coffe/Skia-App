@@ -87,7 +87,6 @@ class AuthenticationRepository extends GetxController {
         logger.i(phoneNumber);
         if (response.statusCode == 201) {
           Get.snackbar("Welcome!", "User succesfully registered.");
-          _auth.signOut();
           Get.offAll(const QuizPage());
         } else {
           logger.i(response.body.toString());
@@ -115,10 +114,6 @@ class AuthenticationRepository extends GetxController {
       if (response.statusCode == 200) {
         logger.i(response.body.toString());
         Map<String, dynamic> responseBody = json.decode(response.body);
-
-        Get.snackbar("Already User",
-            "User already exist with this phone number please use other phone or login");
-        // Get.offAll(const LoginPage());
         return true;
       } else {
         Map<String, dynamic> responseBody = json.decode(response.body);

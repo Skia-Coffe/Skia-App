@@ -167,8 +167,10 @@ class SignUpPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: ElevatedButtonWidget(
-                      controller: controller.phoneNo,
-                      phoneNumber: getPhoneNo()),
+                    controller: controller.phoneNo,
+                    phoneNumber: getPhoneNo(),
+                    countryCode: selectedCountryCode,
+                  ),
                 ),
               ]),
         ),

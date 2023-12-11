@@ -1,4 +1,4 @@
-import 'package:skia_coffee/features/recommedations/business/entities/request_entity.dart';
+import 'package:skia_coffee/features/quiz/business/entities/request_entity.dart';
 
 class RequestModel extends RequestEntity {
   RequestModel({

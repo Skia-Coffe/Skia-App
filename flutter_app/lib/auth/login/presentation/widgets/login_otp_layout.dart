@@ -15,6 +15,7 @@ class LoginOtpLayout extends StatefulWidget {
 class _LoginOtpLayoutState extends State<LoginOtpLayout> {
   var otp;
   int cnt = 0;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

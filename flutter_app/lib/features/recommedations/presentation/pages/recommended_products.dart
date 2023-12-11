@@ -27,7 +27,7 @@ class _RecommendedProductsLayoutState extends State<RecommendedProductsLayout> {
           logger.i(state.recommendations.toString());
           logger.i("Loading...");
           return const SizedBox(
-            height: 200,
+            height: 400,
             child: Center(
               child: CupertinoActivityIndicator(color: textColor),
             ),
@@ -60,8 +60,8 @@ class _RecommendedProductsLayoutState extends State<RecommendedProductsLayout> {
                 return Column(
                   children: [
                     CoffeeCard(
-                        name: products[index].name!,
-                        price: products[index].price!),
+                        name: products[index].product!,
+                        price: products[index].price!.toString()),
                     const AddToCartButton(),
                   ],
                 );

@@ -1,21 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
 import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_quiz_event.dart';
 import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_recommendations_bloc.dart';
-import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_recommendations_state.dart';
-import 'package:skia_coffee/features/recommedations/presentation/widgets/add_to_card_button.dart';
-import 'package:skia_coffee/features/recommedations/presentation/widgets/coffee_card.dart';
+import 'package:skia_coffee/features/recommedations/presentation/pages/recommended_products.dart';
 import 'package:skia_coffee/features/recommedations/presentation/widgets/done_button.dart';
 import 'package:skia_coffee/injection_container.dart';
 
-class RecommendPage extends StatelessWidget {
+class RecommendPage extends StatefulWidget {
   RecommendPage({Key? key}) : super(key: key);
+
+  @override
+  State<RecommendPage> createState() => _RecommendPageState();
+}
+
+class _RecommendPageState extends State<RecommendPage> {
   int l = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +29,9 @@ class RecommendPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.menu,
-                  color: textColor,
-                ),
+                SizedBox(width: 40),
                 Image(image: AssetImage(icLogo)),
+                SizedBox(width: 5),
                 Icon(
                   Icons.shopping_bag_outlined,
                   color: textColor,
@@ -38,7 +40,7 @@ class RecommendPage extends StatelessWidget {
             ),
           ),
           surfaceTintColor: Colors.white,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 1.0,
@@ -60,7 +62,7 @@ class RecommendPage extends StatelessWidget {
             ),
             BlocProvider<RemoteRecommendationBloc>(
               create: (context) => s1()..add(const GetRecommendations()),
-              child: RecommendPage(),
+              child: const RecommendedProductsLayout(),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
