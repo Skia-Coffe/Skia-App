@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skia_coffee/features/customizeBlend/presentation/pages/blend_name_page.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_bloc.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_event.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/coffee_card_item.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/custom_blend.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/lets_go_button.dart';
+import 'package:skia_coffee/features/home/presentation/widgets/skia_special_products_home.dart';
+import 'package:skia_coffee/features/product/presentation/pages/cart_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_page.dart';
+import 'package:skia_coffee/features/product/presentation/pages/product_home_page.dart';
+import 'package:skia_coffee/features/recommedations/presentation/pages/recommend_pages.dart';
+import 'package:skia_coffee/injection_container.dart';
 import '../../../../core/constants/consts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,19 +35,21 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: const Padding(
-              padding: EdgeInsets.all(8.0),
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.menu,
-                    color: textColor,
-                  ),
-                  Image(image: AssetImage(icLogo)),
-                  Icon(
-                    Icons.shopping_bag_outlined,
-                    color: textColor,
+                  const SizedBox(width: 10),
+                  const Image(image: AssetImage(icLogo)),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(const CartPage());
+                    },
+                    child: const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: textColor,
+                    ),
                   ),
                 ],
               ),
@@ -102,42 +113,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Skià Special",
+                      const Text("Skià Special",
                           style: TextStyle(
                               fontFamily: bold,
                               fontSize: 14,
                               color: textColor)),
                       Row(
                         children: [
-                          Text("View more",
-                              style: TextStyle(
-                                  fontFamily: regular,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: textLightColor)),
-                          Icon(Icons.arrow_forward_outlined),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(const ProductPage());
+                            },
+                            child: const Text("View more",
+                                style: TextStyle(
+                                    fontFamily: regular,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: textLightColor)),
+                          ),
+                          const Icon(Icons.arrow_forward_outlined),
                         ],
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: SizedBox(
-                    height: 220.0, // Adjust the height as needed
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5, // Adjust the number of cards as needed
-                      itemBuilder: (context, index) {
-                        return const CoffeCardItem();
-                      },
-                    ),
-                  ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 16),
+                //   child: SizedBox(
+                //     height: 220.0, // Adjust the height as needed
+                //     child: ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: 5, // Adjust the number of cards as needed
+                //       itemBuilder: (context, index) {
+                //         return const CoffeCardItem(
+                //             coffeeName: "Tojar", cost: 300);
+                //       },
+                //     ),
+                //   ),
+                // ),
+                BlocProvider<RemoteProductHomeBloc>(
+                  create: (context) => s1()..add(const GetProductsHome()),
+                  child: const SkiaSpecialProductsHome(),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 22, bottom: 16),
@@ -195,26 +216,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Your Special",
+                      const Text("Your Special",
                           style: TextStyle(
                               fontFamily: bold,
                               fontSize: 14,
                               color: textColor)),
-                      Row(
-                        children: [
-                          Text("View more",
-                              style: TextStyle(
-                                  fontFamily: regular,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: textLightColor)),
-                          Icon(Icons.arrow_forward_outlined),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(RecommendPage());
+                        },
+                        child: const Row(
+                          children: [
+                            Text("View more",
+                                style: TextStyle(
+                                    fontFamily: regular,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    color: textLightColor)),
+                            Icon(Icons.arrow_forward_outlined),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -227,7 +253,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 5, // Adjust the number of cards as needed
                       itemBuilder: (context, index) {
-                        return const CoffeCardItem();
+                        return const CoffeCardItem(
+                            coffeeName: "Tojar",
+                            cost: 300,
+                            imageUrl: "https://example.com/product-image.jpg");
                       },
                     ),
                   ),

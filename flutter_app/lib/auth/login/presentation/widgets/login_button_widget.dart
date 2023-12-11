@@ -48,15 +48,15 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
               loading = true;
             });
 
-            // if (await AuthenticationRepository.to
-            //         .checkUser(widget.phoneNumber.trim()) ==
-            //     true) {
-            LoginController.instance
-                .phoneAuthentication(widget.phoneNumber.trim());
-            Get.to(OtpVerify(phoneNo: widget.phoneNumber));
-            // } else {
-            //   Get.snackbar("Oops !", "No such user please signUp");
-            // }
+            if (await AuthenticationRepository.to
+                    .checkUser(widget.phoneNumber.trim()) ==
+                true) {
+              LoginController.instance
+                  .phoneAuthentication(widget.phoneNumber.trim());
+              Get.to(OtpVerify(phoneNo: widget.phoneNumber));
+            } else {
+              Get.snackbar("Oops !", "No such user please signUp");
+            }
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,
