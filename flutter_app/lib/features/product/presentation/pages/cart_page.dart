@@ -19,7 +19,7 @@ class _CartPageState extends State<CartPage> {
       backgroundColor: greyBg,
       appBar: AppBar(
         title: const Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: EdgeInsets.symmetric(vertical: 14),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("Cart",

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:skia_coffee/features/customizeBlend/data/datasources/product_data_source.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_bloc.dart';
+import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_event.dart';
+import 'package:skia_coffee/features/product/presentation/pages/all_products_page.dart';
+import 'package:skia_coffee/features/product/presentation/pages/cart_page.dart';
 import 'package:skia_coffee/features/product/presentation/widgets/search_bar.dart';
-import 'package:skia_coffee/features/recommedations/presentation/widgets/add_to_card_button.dart';
+import 'package:skia_coffee/injection_container.dart';
 
 import '../../../../core/constants/consts.dart';
 
@@ -19,25 +24,28 @@ class _ProductPageState extends State<ProductPage> {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: const Padding(
-              padding: EdgeInsets.all(8.0),
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.menu,
-                    color: textColor,
+                  const SizedBox(
+                    width: 10,
                   ),
-                  Image(image: AssetImage(icLogo)),
-                  Icon(
-                    Icons.shopping_bag_outlined,
-                    color: textColor,
+                  const Image(image: AssetImage(icLogo)),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(const CartPage());
+                    },
+                    child: const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: textColor,
+                    ),
                   ),
                 ],
               ),
             ),
             surfaceTintColor: Colors.white,
-            automaticallyImplyLeading: false,
             centerTitle: true,
             backgroundColor: Colors.white,
             elevation: 1.0,
@@ -59,32 +67,10 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
               const SearchBarWidget(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Set the number of columns
-                      crossAxisSpacing: 8.0, // Set the spacing between columns
-                      mainAxisSpacing: 0.0, // Set the spacing between rows
-                      childAspectRatio:
-                          0.55, // Adjust this value to set the size of each grid element
-                    ),
-                    itemCount: ProductsData()
-                        .items
-                        .length, // Set the number of entries
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ProductsData().items[index],
-                          const AddToCartButton(),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              )
+              BlocProvider<RemoteProductsBloc>(
+                create: (context) => s1()..add(const GetProducts()),
+                child: const AllProducts(),
+              ),
             ]),
           ),
         ),
