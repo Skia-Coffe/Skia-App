@@ -65,7 +65,7 @@ class _LoginButtonWidgetState extends State<LoginButtonWidget> {
             });
 
             if (await AuthenticationRepository.to
-                    .checkUser(phoneNumber.trim()) ==
+                    .checkUser(fullPhoneNumber.trim()) ==
                 true) {
               LoginController.instance
                   .phoneAuthentication(fullPhoneNumber.trim());

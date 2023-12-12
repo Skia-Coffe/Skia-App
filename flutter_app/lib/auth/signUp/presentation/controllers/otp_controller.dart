@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
-import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
 
 class OTPController extends GetxController {
   static OTPController get instance => Get.find();

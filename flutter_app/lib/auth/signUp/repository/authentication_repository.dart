@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/models/firebaserUserDataModel.dart';
-import 'package:skia_coffee/auth/signUp/models/userVerificationModel.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
@@ -70,8 +69,10 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       String userID = user.uid;
       String name = SignUpController.instance.name.text;
-      String phoneNumber = SignUpController.instance.phoneNo.text;
-
+      String phoneNo = SignUpController.instance.phoneNo.text;
+      String selectedCountryCode = SignUpController.instance.countryCode;
+      String phoneNumber = selectedCountryCode + phoneNo;
+      logger.i(phoneNumber);
       FirebaseUserModel userModel = FirebaseUserModel(
           userID: userID, name: name, phoneNumber: phoneNumber);
 
