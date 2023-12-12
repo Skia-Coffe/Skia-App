@@ -3,27 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_bloc.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_state.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_recommendations_bloc.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_recommendations_state.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/coffee_card_item.dart';
 
-class SkiaSpecialProductsHome extends StatefulWidget {
-  const SkiaSpecialProductsHome({super.key});
+class YourSpecialProductsHome extends StatefulWidget {
+  const YourSpecialProductsHome({super.key});
 
   @override
-  State<SkiaSpecialProductsHome> createState() =>
-      _SkiaSpecialProductsHomeState();
+  State<YourSpecialProductsHome> createState() =>
+      _YourSpecialProductsHomeState();
 }
 
-class _SkiaSpecialProductsHomeState extends State<SkiaSpecialProductsHome> {
+class _YourSpecialProductsHomeState extends State<YourSpecialProductsHome> {
   @override
   Widget build(BuildContext context) {
     buildBody() {
       Logger logger = Logger();
-      return BlocBuilder<RemoteProductHomeBloc, RemoteProductHomeState>(
-          builder: (_, state) {
-        if (state is RemoteProductHomeStateLoading) {
-          logger.i(state.products.toString());
+      return BlocBuilder<RemoteRecommendationHomeBloc,
+          RemoteRecommendationHomeState>(builder: (_, state) {
+        if (state is RemoteRecommendationStateLoading) {
+          logger.i(state.recommendations.toString());
           logger.i("Loading...");
           return const SizedBox(
             height: 200,
@@ -33,15 +34,15 @@ class _SkiaSpecialProductsHomeState extends State<SkiaSpecialProductsHome> {
           );
         }
 
-        if (state is RemoteProductHomeStateError) {
+        if (state is RemoteRecommendationStateError) {
           return const Center(
               child: Icon(
             Icons.refresh,
             color: textColor,
           ));
         }
-        int l = state.products!.length;
-        var products = state.products;
+        int l = state.recommendations!.length;
+        var products = state.recommendations;
 
         return Padding(
           padding: const EdgeInsets.only(left: 16),
