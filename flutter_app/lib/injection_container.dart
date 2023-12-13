@@ -10,9 +10,11 @@ import 'package:skia_coffee/features/product/business/repositories/products_repo
 import 'package:skia_coffee/features/product/business/usecases/get_products.dart';
 import 'package:skia_coffee/features/product/data/repositories/product_repository_impl.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_bloc.dart';
+import 'package:skia_coffee/features/quiz/business/repositories/quiz_answers_sending_repository.dart';
 import 'package:skia_coffee/features/quiz/business/repositories/quiz_repository.dart';
 import 'package:skia_coffee/features/quiz/business/usecases/get_quiz.dart';
 import 'package:skia_coffee/features/quiz/data/datasources/remote/quiz_api_service.dart';
+import 'package:skia_coffee/features/quiz/data/repositories/quiz_answers_sending_repository_impl.dart';
 import 'package:skia_coffee/features/quiz/data/repositories/quiz_repository_impl.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_bloc.dart';
 import 'package:skia_coffee/features/recommedations/business/repositories/recommendation_repositories.dart';
@@ -32,6 +34,8 @@ Future<void> initializeDependencies() async {
 
   //repository
   s1.registerSingleton<QuizReprository>(QuizRepositoryImpl(s1()));
+  s1.registerSingleton<QuizAnswerSendingRepository>(
+      QuizAnswerSendingRepositoryImpl());
   s1.registerSingleton<RecommendationRepository>(
       RecommendationRespositoryImp());
   s1.registerSingleton<HomeReprository>(HomeRepositoryImpl());

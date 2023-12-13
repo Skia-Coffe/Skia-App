@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
+import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 
 class OTPLoginController extends GetxController {
   static OTPLoginController get instance => Get.find();
@@ -11,6 +12,6 @@ class OTPLoginController extends GetxController {
       Get.snackbar("Welcome!", "You logged in Successfully !");
       // AuthenticationRepository.to.registerFirebaseUser();
     }
-    isVerified ? Get.offAll(const QuizPage()) : Get.back();
+    isVerified ? Get.offAll(const BottomNavigation(curHome: 0)) : Get.back();
   }
 }

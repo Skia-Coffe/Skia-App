@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
@@ -44,6 +45,12 @@ class RecommendationRespositoryImp implements RecommendationRepository {
       } else {
         logger.i(httpResponse.statusCode.toString());
         logger.i(httpResponse.body.toString());
+        if (httpResponse.statusCode == 400) {
+          Get.snackbar("Sorry!", "No products found for the user");
+        } else {
+          Get.snackbar("Error", "Internal Server Error");
+        }
+
         return DataFailed(
             // ignore: deprecated_member_use
             DioError(

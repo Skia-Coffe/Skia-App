@@ -8,6 +8,7 @@ import 'package:skia_coffee/auth/signUp/models/firebaserUserDataModel.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
+import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 
 import '../../../core/constants/consts.dart';
 
@@ -91,7 +92,7 @@ class AuthenticationRepository extends GetxController {
           Get.offAll(const QuizPage());
         } else {
           logger.i(response.body.toString());
-          Get.offAll(const QuizPage());
+          Get.offAll(const BottomNavigation(curHome: 0));
           Get.snackbar("Already an User", "You have logged in successfully!");
         }
       } catch (e) {

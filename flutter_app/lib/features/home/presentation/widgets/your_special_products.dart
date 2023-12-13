@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_state.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_recommendations_bloc.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_recommendations_state.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/coffee_card_item.dart';
@@ -36,10 +35,12 @@ class _YourSpecialProductsHomeState extends State<YourSpecialProductsHome> {
 
         if (state is RemoteRecommendationStateError) {
           return const Center(
-              child: Icon(
-            Icons.refresh,
-            color: textColor,
-          ));
+            child: Text("No products found for the user"),
+            //     child: Icon(
+            //   Icons.refresh,
+            //   color: textColor,
+            // )
+          );
         }
         int l = state.recommendations!.length;
         var products = state.recommendations;

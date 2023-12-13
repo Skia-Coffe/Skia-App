@@ -4,9 +4,11 @@ class RequestEntity extends Equatable {
   String? flavour;
   String? roast;
   String? brewMethod;
-  bool? strong;
+  String? strong;
   String? additionalFlavour;
+  String? UserID;
   RequestEntity({
+    this.UserID,
     this.flavour,
     this.roast,
     this.brewMethod,
@@ -16,11 +18,12 @@ class RequestEntity extends Equatable {
 
   @override
   List<Object?> get props {
-    return [flavour, roast, brewMethod, strong, additionalFlavour];
+    return [UserID, flavour, roast, brewMethod, strong, additionalFlavour];
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'UserID': UserID,
       'flavour': flavour,
       'roast': roast,
       'brew_method': brewMethod,

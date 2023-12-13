@@ -1,63 +1,66 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
-import 'package:skia_coffee/core/resources/data_state.dart';
 import 'package:skia_coffee/features/quiz/business/repositories/quiz_answers_sending_repository.dart';
-import 'package:skia_coffee/features/quiz/data/datasources/remote/quiz_api_service.dart';
 import 'package:skia_coffee/features/quiz/data/models/request_model.dart';
+import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
+import 'package:skia_coffee/features/recommedations/presentation/pages/recommend_pages.dart';
 
 class QuizAnswerSendingRepositoryImpl implements QuizAnswerSendingRepository {
   // ignore: unused_field
-  final QuizApiService _quizApiService;
-  QuizAnswerSendingRepositoryImpl(this._quizApiService);
 
   @override
-  Future<DataState<String>> sendAnswers() async {
+  Future<void> sendAnswers() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Logger logger = Logger();
+    var _auth = FirebaseAuth.instance;
     RequestModel sendData = RequestModel(
-        flavour: pref.getString("flavour"),
-        roast: pref.getString("roast"),
-        brewMethod: pref.getString("brewMethod"),
-        strong: pref.getBool("strong"),
-        additionalFlavour: pref.getString("additionalFlavour"));
+        UserID: _auth.currentUser!.uid,
+        flavour: "Sample Flavour",
+        roast: "Medium Roast",
+        brewMethod: "Drip Brew",
+        strong: "Mild",
+        additionalFlavour: "Additional Flavour Description");
     try {
       // final httpResponse = await _quizApiService.getQuiz();
-      String url = "$baseUrl/quiz";
-      final httpResponse = await http.post(Uri.parse(url),
-          headers: {'Content-Type': 'application/json'},
-          body: sendData.toJson());
+      // String url = "$baseUrl/quiz/save";
+      // logger.i(sendData.toJson());
+      // final httpResponse =
+      //     await http.post(Uri.parse(url), body: sendData.toJson());
+      final dio = Dio();
+      dio.options.headers["Content-Type"] = "application/json";
+
+      final httpResponse = await dio.post(
+        "$baseUrl/quiz/save",
+        data: sendData.toJson(),
+      );
       if (httpResponse.statusCode == HttpStatus.ok) {
-        logger.d(httpResponse.body);
+        logger.d(httpResponse.data);
         // Parse the response body as a List<dynamic>
-        List<dynamic> jsonData = json.decode(httpResponse.body);
+        // List<dynamic> jsonData = json.decode(httpResponse.data);
 
         // Convert each dynamic element to a QuizModel
-        String msg = jsonData.toString();
+        // String msg = jsonData.toString();
 
-        logger.d(msg);
-        return DataSuccess(msg);
+        // logger.i(msg);
+        Get.offAll(() => RecommendPage());
       } else {
-        return DataFailed(
-            // ignore: deprecated_member_use
-            DioError(
-                error: httpResponse.statusCode,
-                requestOptions: RequestOptions(),
-                // ignore: deprecated_member_use
-                type: DioErrorType.badResponse));
+        logger.i(httpResponse.data.toString());
+        Get.snackbar("Error", "something went wrong try again!");
+        Get.off(const QuizPage());
       }
       // ignore: deprecated_member_use
     } catch (e) {
-      logger.i("Errors");
-      logger.d(e.toString());
-      return DataFailed(DioError(
-          requestOptions: RequestOptions(),
-          // ignore: deprecated_member_use
-          type: DioErrorType.badResponse));
+      logger.i("Oops");
+      logger.i(e.toString());
+      Get.snackbar("Error", "something went wrong try again!");
+      Get.off(const QuizPage());
     }
   }
 }

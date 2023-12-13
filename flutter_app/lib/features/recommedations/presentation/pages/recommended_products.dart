@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
@@ -36,10 +35,11 @@ class _RecommendedProductsLayoutState extends State<RecommendedProductsLayout> {
 
         if (state is RemoteRecommendationStateError) {
           return const Center(
-              child: Icon(
-            Icons.refresh,
-            color: textColor,
-          ));
+            child: Text("No products found for the user"),
+            //     child: Icon(
+            //   Icons.refresh,
+            //   color: textColor,)
+          );
         }
 
         int l = state.recommendations!.length;

@@ -5,9 +5,11 @@ class RequestModel extends RequestEntity {
     String? flavour,
     String? roast,
     String? brewMethod,
-    bool? strong,
+    String? strong,
     String? additionalFlavour,
+    String? UserID,
   }) : super(
+            UserID: UserID,
             flavour: flavour,
             roast: roast,
             brewMethod: brewMethod,
@@ -16,6 +18,7 @@ class RequestModel extends RequestEntity {
 
   Map<String, dynamic> toJson() {
     return {
+      'UserID': UserID,
       'flavour': flavour,
       'roast': roast,
       'brew_method': brewMethod,

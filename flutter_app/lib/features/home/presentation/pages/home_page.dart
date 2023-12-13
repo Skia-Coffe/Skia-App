@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skia_coffee/features/customizeBlend/presentation/pages/blend_name_page.dart';
+import 'package:skia_coffee/features/customizeBlend/presentation/pages/customize_blend.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_bloc.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_event.dart';
 import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_quiz_event.dart';
@@ -256,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        const CustomBlendName(),
+        const CustomBlendPage(),
         const ProductDetailsPage(),
       ],
     );

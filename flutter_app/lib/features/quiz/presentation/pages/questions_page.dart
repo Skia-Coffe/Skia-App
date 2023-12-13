@@ -1,18 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/assets_images.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
+import 'package:skia_coffee/core/resources/data_state.dart';
+import 'package:skia_coffee/features/quiz/data/repositories/quiz_answers_sending_repository_impl.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_bloc.dart';
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_state.dart';
-import 'package:skia_coffee/features/quiz/presentation/widgets/next_button.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/option_card.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
-import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_recommendations_bloc.dart';
-import 'package:skia_coffee/features/recommedations/presentation/bloc/remote/remote_quiz_event.dart';
-import 'package:skia_coffee/features/recommedations/presentation/pages/recommend_pages.dart';
-import 'package:skia_coffee/injection_container.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -22,14 +20,17 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
-  void changeScreen(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => BlocProvider<RemoteRecommendationBloc>(
-                  create: (context) => s1()..add(const GetRecommendations()),
-                  child: RecommendPage(),
-                )));
+  bool isLoading = false;
+  void changeScreen(BuildContext context) async {
+    QuizAnswerSendingRepositoryImpl _repo = QuizAnswerSendingRepositoryImpl();
+    _repo.sendAnswers();
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => BlocProvider<RemoteRecommendationBloc>(
+    //               create: (context) => s1()..add(const GetRecommendations()),
+    //               child: RecommendPage(),
+    //             )));
   }
 
   int index = 0;
@@ -37,6 +38,9 @@ class _QuestionPageState extends State<QuestionPage> {
   String btnText = "Next";
   void nextQuestion() {
     if (index == l - 1) {
+      setState(() {
+        isLoading = true;
+      });
       changeScreen(context);
       return;
     }
@@ -134,10 +138,38 @@ class _QuestionPageState extends State<QuestionPage> {
                     ]),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: NextButtonQuiz(
-                        nextQuestion: nextQuestion, btnText: btnText),
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        child: SizedBox(
+                          width: 282,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              nextQuestion();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: textColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                            child: isLoading
+                                ? const CircularProgressIndicator(
+                                    color: white,
+                                  )
+                                : Text(
+                                    btnText,
+                                    style: const TextStyle(
+                                        fontFamily: bold,
+                                        fontSize: 14,
+                                        color: Colors.white),
+                                  ),
+                          ),
+                        ),
+                      ))
+                  //    NextButtonQuiz(
+                  //       nextQuestion: nextQuestion, btnText: btnText),
+                  // ),
                 ],
               ),
             ),
