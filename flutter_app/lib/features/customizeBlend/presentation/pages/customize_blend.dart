@@ -1,6 +1,10 @@
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:skia_coffee/features/customizeBlend/presentation/widgets/option_card_button.dart';
+import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
 
 import '../../../../core/constants/consts.dart';
 
@@ -13,6 +17,15 @@ class CustomBlendPage extends StatefulWidget {
 
 class _CustomBlendPageState extends State<CustomBlendPage> {
   List<String> blendNames = ["Arabica", "Chicory", "Robusta"];
+  List<String> type = [
+    "Choose a Flavor",
+    "Choose a Flavor",
+    "Blend Size",
+    "Choose a Stringness"
+  ];
+  int choosenIndex = 0;
+
+  int choosedflavour = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +82,17 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
                     child: Image.asset(icLogo, fit: BoxFit.cover)),
                 children: List.generate(3, (index) {
                   return TextButton(
-                      onPressed: () {}, child: Text(blendNames[index]));
+                      onPressed: () {
+                        setState(() {
+                          choosenIndex = index;
+                        });
+                      },
+                      child: Text(
+                        blendNames[index],
+                        style: TextStyle(
+                            color:
+                                index == choosenIndex ? textColor : appBarbg),
+                      ));
                 }),
               ),
             ),
@@ -85,8 +108,14 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)),
                 ),
-                child: const SingleChildScrollView(
-                  child: Column(children: []),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: type.length,
+                      itemBuilder: (context, index) =>
+                          OptionCardButton(index: index, text: type[index])),
                 ),
               ),
             ),
