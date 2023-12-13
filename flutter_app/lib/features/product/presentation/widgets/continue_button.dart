@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:skia_coffee/features/product/presentation/pages/verified_address_page.dart';
-import 'package:skia_coffee/features/product/presentation/widgets/adress_page_widget.dart';
 
 import '../../../../core/constants/consts.dart';
 

@@ -1,7 +1,6 @@
 import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:skia_coffee/core/constants/icons.dart';
 
 import '../../../../core/constants/consts.dart';
 
