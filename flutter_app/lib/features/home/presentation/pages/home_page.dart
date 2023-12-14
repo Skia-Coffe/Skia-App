@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         const CustomBlendPage(),
-        const ProductDetailsPage(),
+        const ProductDetailsPage(prod: "Toraja Sulawesi")
       ],
     );
   }

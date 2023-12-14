@@ -11,6 +11,10 @@ import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_b
 import 'package:skia_coffee/features/quiz/presentation/bloc/remote/remote_quiz_state.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/option_card.dart';
 import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
+import 'package:skia_coffee/features/recommedations/presentation/bloc/answer_sending/remote/remote_quiz_event.dart';
+import 'package:skia_coffee/features/recommedations/presentation/bloc/answer_sending/remote/remote_recommendations_bloc.dart';
+import 'package:skia_coffee/features/recommedations/presentation/pages/recommend_pages.dart';
+import 'package:skia_coffee/injection_container.dart';
 
 class QuestionPage extends StatefulWidget {
   const QuestionPage({Key? key}) : super(key: key);
@@ -22,15 +26,15 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   bool isLoading = false;
   void changeScreen(BuildContext context) async {
-    QuizAnswerSendingRepositoryImpl _repo = QuizAnswerSendingRepositoryImpl();
-    _repo.sendAnswers();
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => BlocProvider<RemoteRecommendationBloc>(
-    //               create: (context) => s1()..add(const GetRecommendations()),
-    //               child: RecommendPage(),
-    //             )));
+    // QuizAnswerSendingRepositoryImpl _repo = QuizAnswerSendingRepositoryImpl();
+    // _repo.sendAnswers();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BlocProvider<RemoteAnswerSendingBloc>(
+                  create: (context) => s1()..add(const SendAnswers()),
+                  child: RecommendPage(),
+                )));
   }
 
   int index = 0;

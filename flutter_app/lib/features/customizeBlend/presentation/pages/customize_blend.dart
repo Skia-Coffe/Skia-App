@@ -2,9 +2,8 @@ import 'package:circle_list/circle_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:skia_coffee/features/customizeBlend/presentation/widgets/next_button.dart';
 import 'package:skia_coffee/features/customizeBlend/presentation/widgets/option_card_button.dart';
-import 'package:skia_coffee/features/quiz/presentation/widgets/widgets.dart';
 
 import '../../../../core/constants/consts.dart';
 
@@ -20,9 +19,17 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
   List<String> type = [
     "Choose a Flavor",
     "Choose a Flavor",
+    "Choice of roast",
     "Blend Size",
-    "Choose a Stringness"
   ];
+
+  List<List<String>> options = [
+    ["Washed", "Honey", "None"],
+    ["Fruity", "Nutty", "None"],
+    ["Light", "Medium", "Dark"],
+    ["Fine", "Medium", "Coarse"]
+  ];
+
   int choosenIndex = 0;
 
   int choosedflavour = -1;
@@ -30,17 +37,22 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
+        title: Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                Icons.menu,
-                color: textColor,
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: textColor,
+                ),
               ),
-              Image(image: AssetImage(icLogo)),
-              Icon(
+              const Image(image: AssetImage(icLogo)),
+              const Icon(
                 Icons.shopping_bag_outlined,
                 color: textColor,
               ),
@@ -113,9 +125,14 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
-                      itemCount: type.length,
-                      itemBuilder: (context, index) =>
-                          OptionCardButton(index: index, text: type[index])),
+                      itemCount: type.length + 1,
+                      itemBuilder: (context, index) => index == type.length
+                          ? const NextButtonBlend()
+                          : OptionCardButton(
+                              index: index,
+                              text: type[index],
+                              options: options[index],
+                            )),
                 ),
               ),
             ),

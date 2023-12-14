@@ -42,18 +42,21 @@ class QuizAnswerSendingRepositoryImpl implements QuizAnswerSendingRepository {
       );
       if (httpResponse.statusCode == HttpStatus.ok) {
         logger.d(httpResponse.data);
-        // Parse the response body as a List<dynamic>
-        // List<dynamic> jsonData = json.decode(httpResponse.data);
-
-        // Convert each dynamic element to a QuizModel
-        // String msg = jsonData.toString();
-
+        String msg = "Answers saved Successfully";
         // logger.i(msg);
         Get.offAll(() => RecommendPage());
       } else {
         logger.i(httpResponse.data.toString());
-        Get.snackbar("Error", "something went wrong try again!");
+        Get.snackbar("Error", "Please Enter all fields!");
         Get.off(const QuizPage());
+
+        // return DataFailed(
+        //     // ignore: deprecated_member_use
+        //     DioError(
+        //         error: httpResponse.statusCode,
+        //         requestOptions: RequestOptions(),
+        //         // ignore: deprecated_member_use
+        //         type: DioErrorType.badResponse));
       }
       // ignore: deprecated_member_use
     } catch (e) {
@@ -61,6 +64,10 @@ class QuizAnswerSendingRepositoryImpl implements QuizAnswerSendingRepository {
       logger.i(e.toString());
       Get.snackbar("Error", "something went wrong try again!");
       Get.off(const QuizPage());
+      // return DataFailed(DioError(
+      //     requestOptions: RequestOptions(),
+      //     // ignore: deprecated_member_use
+      //     type: DioErrorType.badResponse));
     }
   }
 }
