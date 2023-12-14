@@ -12,6 +12,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  int gender = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,25 +67,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               radius: 60,
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(vertical: 16),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.radio_button_checked,
-                                        color: textColor),
-                                    Text("Miss")
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      gender = 0;
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      gender == 0
+                                          ? const Icon(
+                                              Icons.radio_button_checked,
+                                              color: textColor)
+                                          : const Icon(
+                                              Icons.radio_button_off_outlined,
+                                              color: textColor),
+                                      Text("Mr")
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(width: 10),
-                                Row(
-                                  children: [
-                                    Icon(Icons.radio_button_checked,
-                                        color: textColor),
-                                    Text("Mr")
-                                  ],
+                                const SizedBox(width: 10),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      gender = 1;
+                                    });
+                                  },
+                                  child: Row(
+                                    children: [
+                                      gender == 1
+                                          ? const Icon(
+                                              Icons.radio_button_checked,
+                                              color: textColor)
+                                          : const Icon(
+                                              Icons.radio_button_off_outlined,
+                                              color: textColor),
+                                      Text("Miss")
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -130,33 +155,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: "Email Address",
-                        labelStyle: TextStyle(
-                            color: textLightColor,
-                            fontFamily: regular,
-                            fontSize: 12,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w500),
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: "Password",
-                        suffixIcon: ChangeButton(),
-                        labelStyle: TextStyle(
-                            color: textLightColor,
-                            fontFamily: regular,
-                            fontSize: 12,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w500),
-                        border: UnderlineInputBorder(),
-                      ),
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.datetime,
-                      decoration: InputDecoration(
-                        labelText: "DOB",
                         labelStyle: TextStyle(
                             color: textLightColor,
                             fontFamily: regular,
