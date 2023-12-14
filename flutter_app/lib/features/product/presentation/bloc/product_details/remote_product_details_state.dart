@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:logger/logger.dart';
 import 'package:skia_coffee/features/product/business/entities/product_details_entity.dart';
 
 abstract class RemoteProductDetailsState extends Equatable {
-  final List<ProductDetailsEntity>? productDetails;
+  final ProductDetailsEntity? productDetails;
   // ignore: deprecated_member_use
   final DioError? error;
 
@@ -18,7 +17,7 @@ class RemoteProductDetailsStateLoading extends RemoteProductDetailsState {
 }
 
 class RemoteProductDetailsStateDone extends RemoteProductDetailsState {
-  const RemoteProductDetailsStateDone(List<ProductDetailsEntity> products)
+  const RemoteProductDetailsStateDone(ProductDetailsEntity products)
       : super(productDetails: products);
 }
 

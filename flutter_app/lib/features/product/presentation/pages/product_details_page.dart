@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:skia_coffee/core/constants/icons.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_bloc.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_event.dart';
-import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_event.dart';
 import 'package:skia_coffee/features/product/presentation/pages/cart_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_content.dart';
-import 'package:skia_coffee/features/product/presentation/widgets/rating_widget.dart';
-import 'package:skia_coffee/features/product/presentation/widgets/review_widget.dart';
 import 'package:skia_coffee/injection_container.dart';
 
 import '../../../../core/constants/consts.dart';

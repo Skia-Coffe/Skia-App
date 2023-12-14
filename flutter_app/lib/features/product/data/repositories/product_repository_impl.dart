@@ -55,22 +55,28 @@ class ProductsRepositoryImpl implements ProductsRepository {
   }
 
   @override
-  Future<DataState<List<ProductDetailsEntity>>> getProductsDetails(
+  Future<DataState<ProductDetailsEntity>> getProductsDetails(
       String prod) async {
     try {
-      String url = "$baseUrl/products/$prod";
+      String url = "$baseUrl/product/$prod";
       final response = await http
           .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
       // logger.i(prod);
       if (response.statusCode == HttpStatus.ok) {
-        List<dynamic> jsonData = json.decode(response.body);
+        Map<String, dynamic>? jsonData = json.decode(response.body);
         logger.i(jsonData);
-        List<ProductDetailsModel> data = jsonData
-            .map((dynamic data) => ProductDetailsModel.fromJson(data))
-            .toList();
-        ProductDetailsModel product = data[0];
-
-        return DataSuccess(data);
+        if (jsonData != null && jsonData.isNotEmpty) {
+          ProductDetailsModel product = ProductDetailsModel.fromJson(jsonData);
+          return DataSuccess(product);
+        } else {
+          return DataFailed(
+              // ignore: deprecated_member_use
+              DioError(
+                  error: response.statusCode,
+                  requestOptions: RequestOptions(),
+                  // ignore: deprecated_member_use
+                  type: DioErrorType.badResponse));
+        }
       } else {
         return DataFailed(
             // ignore: deprecated_member_use

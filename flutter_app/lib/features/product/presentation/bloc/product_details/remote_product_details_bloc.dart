@@ -17,7 +17,7 @@ class RemoteProductDetailsBloc
     final dataState =
         await _getProducDetailsUseCase(params: productDetails.prodId);
 
-    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
+    if (dataState is DataSuccess && dataState.data != null) {
       emit(RemoteProductDetailsStateDone(dataState.data!));
     }
 

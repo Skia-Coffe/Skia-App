@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
+import 'package:skia_coffee/features/product/business/entities/product_details_entity.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_bloc.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_state.dart';
 import 'package:skia_coffee/features/product/presentation/widgets/rating_widget.dart';
@@ -43,6 +44,8 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
           ));
         }
 
+        ProductDetailsEntity p = state.productDetails!;
+
         return SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -68,9 +71,10 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                             height: 180,
                             child: Image(
                               image: AssetImage(icCoffeeImage),
+                              // image: NetworkImage(p.imageUrl!),
                               fit: BoxFit.cover,
                             )),
-                        SizedBox(
+                        const SizedBox(
                             height: 40,
                             child: Image(
                               image: AssetImage(imEllipseBg),
@@ -85,25 +89,25 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Toraja Sulawesi",
-                        style: TextStyle(
+                        p.product!,
+                        style: const TextStyle(
                           fontFamily: bold,
                           fontSize: 24,
                           color: textColor,
                         ),
                       ),
-                      RatingWidget(),
+                      const RatingWidget(),
                       Padding(
                         padding: EdgeInsets.only(top: 8),
                         child: Text(
-                          "Rs.300",
-                          style: TextStyle(
+                          "Rs ${p.price}",
+                          style: const TextStyle(
                             fontFamily: regular,
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -181,11 +185,12 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                       fontStyle: FontStyle.normal,
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
                     child: Text(
-                      "Sourced from the world's finest regions, our beans promise a symphony of flavors. From the delicate, floral notes of our light roast to the bold, smoky depths of our dark roast, each cup is a journey of taste. Ethically and sustainably grown, our coffee beans support communities and the environment.",
-                      style: TextStyle(
+                      // "Sourced from the world's finest regions, our beans promise a symphony of flavors. From the delicate, floral notes of our light roast to the bold, smoky depths of our dark roast, each cup is a journey of taste. Ethically and sustainably grown, our coffee beans support communities and the environment.",
+                      p.productInfo!,
+                      style: const TextStyle(
                           fontFamily: regular,
                           fontSize: 10,
                           fontStyle: FontStyle.normal,
@@ -220,8 +225,8 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                               child: SvgPicture.asset(
                                   'assets/icons/circum_coffee-bean (3).svg'),
                             ),
-                            const Text("250gm",
-                                style: TextStyle(
+                            Text("${p.quantity}gm",
+                                style: const TextStyle(
                                     color: textColor,
                                     fontSize: 12,
                                     fontFamily: regular,
