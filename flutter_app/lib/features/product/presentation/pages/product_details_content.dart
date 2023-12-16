@@ -8,6 +8,7 @@ import 'package:skia_coffee/features/product/presentation/bloc/product_details/r
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_state.dart';
 import 'package:skia_coffee/features/product/presentation/widgets/rating_widget.dart';
 import 'package:skia_coffee/features/product/presentation/widgets/review_widget.dart';
+import 'package:skia_coffee/features/product/presentation/widgets/view_all_button.dart';
 
 import '../../../../core/constants/consts.dart';
 import '../../../../core/constants/icons.dart';
@@ -293,8 +294,10 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                         ),
                         Column(
                           children: List.generate(
-                            2,
-                            (index) => const ReviewWidget(),
+                            3,
+                            (index) => index == 2
+                                ? const ViewAllButton()
+                                : const ReviewWidget(),
                           ),
                         ),
                       ],
