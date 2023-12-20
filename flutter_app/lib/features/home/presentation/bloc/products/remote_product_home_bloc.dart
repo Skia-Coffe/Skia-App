@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skia_coffee/core/resources/data_state.dart';
 import 'package:skia_coffee/features/home/business/usecases/get_products_home.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_event.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_state.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_event.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_state.dart';
 
 class RemoteProductHomeBloc
     extends Bloc<RemoteProductHomeEvent, RemoteProductHomeState> {

@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/auth/login/presentation/pages/login_page.dart';
 import 'package:skia_coffee/auth/signUp/models/firebaserUserDataModel.dart';
-import 'package:skia_coffee/auth/signUp/models/userVerificationModel.dart';
 import 'package:skia_coffee/auth/signUp/presentation/controllers/signUp_controller.dart';
 import 'package:skia_coffee/auth/signUp/presentation/pages/signup_pages.dart';
 import 'package:skia_coffee/features/quiz/presentation/pages/quiz_page.dart';
+import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
 
 import '../../../core/constants/consts.dart';
 
@@ -70,8 +70,10 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       String userID = user.uid;
       String name = SignUpController.instance.name.text;
-      String phoneNumber = SignUpController.instance.phoneNo.text;
-
+      String phoneNo = SignUpController.instance.phoneNo.text;
+      String selectedCountryCode = SignUpController.instance.countryCode;
+      String phoneNumber = selectedCountryCode + phoneNo;
+      logger.i(phoneNumber);
       FirebaseUserModel userModel = FirebaseUserModel(
           userID: userID, name: name, phoneNumber: phoneNumber);
 
@@ -87,11 +89,10 @@ class AuthenticationRepository extends GetxController {
         logger.i(phoneNumber);
         if (response.statusCode == 201) {
           Get.snackbar("Welcome!", "User succesfully registered.");
-          _auth.signOut();
           Get.offAll(const QuizPage());
         } else {
           logger.i(response.body.toString());
-          Get.offAll(const QuizPage());
+          Get.offAll(const BottomNavigation(curHome: 0));
           Get.snackbar("Already an User", "You have logged in successfully!");
         }
       } catch (e) {
@@ -115,10 +116,6 @@ class AuthenticationRepository extends GetxController {
       if (response.statusCode == 200) {
         logger.i(response.body.toString());
         Map<String, dynamic> responseBody = json.decode(response.body);
-
-        Get.snackbar("Already User",
-            "User already exist with this phone number please use other phone or login");
-        // Get.offAll(const LoginPage());
         return true;
       } else {
         Map<String, dynamic> responseBody = json.decode(response.body);

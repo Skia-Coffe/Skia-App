@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
@@ -10,7 +12,6 @@ import 'package:skia_coffee/features/recommedations/business/entities/recommenda
 import 'package:skia_coffee/features/recommedations/business/repositories/recommendation_repositories.dart';
 import 'package:http/http.dart' as http;
 import 'package:skia_coffee/features/recommedations/data/models/Recommedations_model.dart';
-import 'package:skia_coffee/features/recommedations/data/models/request_model.dart';
 
 class RecommendationRespositoryImp implements RecommendationRepository {
   @override
@@ -18,19 +19,16 @@ class RecommendationRespositoryImp implements RecommendationRepository {
     Logger logger = Logger();
     SharedPreferences pref = await SharedPreferences.getInstance();
     logger.i(pref.getString("flavour"));
-    RequestModel sendData = RequestModel(
-        flavour: pref.getString("flavour"),
-        roast: pref.getString("roast"),
-        brewMethod: pref.getString("brewMethod"),
-        strong: pref.getBool("strong"),
-        additionalFlavour: pref.getString("additionalFlavour"));
-    String url = "$baseUrl/recommendation";
+
+    var _auth = FirebaseAuth.instance;
+    var userId = _auth.currentUser!.uid;
+    logger.i(userId);
+    String url = "$baseUrl/quiz/$userId";
 
     try {
       // final httpResponse = await _quizApiService.getQuiz();
-      final httpResponse = await http.post(Uri.parse(url),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(sendData.toJson()));
+      final httpResponse = await http
+          .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
 
       if (httpResponse.statusCode == HttpStatus.ok) {
         logger.d(httpResponse.body);
@@ -42,9 +40,17 @@ class RecommendationRespositoryImp implements RecommendationRepository {
             .map((dynamic data) => RecommendationModel.fromJson(data))
             .toList();
 
-        logger.d(recommendations);
+        logger.i(recommendations);
         return DataSuccess(recommendations);
       } else {
+        logger.i(httpResponse.statusCode.toString());
+        logger.i(httpResponse.body.toString());
+        if (httpResponse.statusCode == 400) {
+          Get.snackbar("Sorry!", "No products found for the user");
+        } else {
+          Get.snackbar("Error", "Internal Server Error");
+        }
+
         return DataFailed(
             // ignore: deprecated_member_use
             DioError(

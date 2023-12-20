@@ -27,7 +27,7 @@ class CoffeeCard extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProductDetailsPage()));
+                        builder: (context) => ProductDetailsPage(prod: name)));
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(45, 0, 45, 0),

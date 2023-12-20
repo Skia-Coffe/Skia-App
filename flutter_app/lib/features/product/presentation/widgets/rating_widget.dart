@@ -17,11 +17,11 @@ class _RatingWidgetState extends State<RatingWidget> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(Icons.star, color: textColor),
-          Icon(Icons.star, color: textColor),
-          Icon(Icons.star, color: textColor),
-          Icon(Icons.star, color: textColor),
-          Icon(Icons.star_border, color: textColor),
+          Icon(Icons.star, color: textColor, size: 16),
+          Icon(Icons.star, color: textColor, size: 16),
+          Icon(Icons.star, color: textColor, size: 16),
+          Icon(Icons.star, color: textColor, size: 16),
+          Icon(Icons.star_border, color: textColor, size: 16),
           Padding(
             padding: EdgeInsets.only(left: 4),
             child: Text(

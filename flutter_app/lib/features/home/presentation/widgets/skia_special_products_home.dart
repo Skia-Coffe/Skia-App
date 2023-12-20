@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_bloc.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_state.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_bloc.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_state.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/coffee_card_item.dart';
 
 class SkiaSpecialProductsHome extends StatefulWidget {

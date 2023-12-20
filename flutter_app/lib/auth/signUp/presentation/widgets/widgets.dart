@@ -56,9 +56,13 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
 //button
 class ElevatedButtonWidget extends StatefulWidget {
   const ElevatedButtonWidget(
-      {super.key, required this.controller, required this.phoneNumber});
+      {super.key,
+      required this.controller,
+      required this.phoneNumber,
+      required this.countryCode});
   final TextEditingController controller;
   final String phoneNumber;
+  final String countryCode;
 
   @override
   State<ElevatedButtonWidget> createState() => _ElevatedButtonWidgetState();
@@ -69,6 +73,17 @@ class _ElevatedButtonWidgetState extends State<ElevatedButtonWidget> {
 
   final _auth = FirebaseAuth.instance;
   Logger logger = Logger();
+  String fullPhoneNumber = "+91";
+  String getPhoneNo() {
+    String phoneNumber = widget.controller.text;
+    String selectedCountryCode = widget.countryCode;
+    fullPhoneNumber = '$selectedCountryCode$phoneNumber';
+    return fullPhoneNumber;
+  }
+
+  init() {
+    getPhoneNo();
+  }
 
   @override
   Widget build(BuildContext context) {

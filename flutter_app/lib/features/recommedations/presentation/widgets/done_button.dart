@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
 import 'package:skia_coffee/core/constants/styles.dart';
 import 'package:skia_coffee/features/skeleton/bottom_navigation.dart';
@@ -21,7 +22,8 @@ class DoneButton extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           onPressed: () {
-            changeScreen(context);
+            // changeScreen(context);
+            Get.offAll(const BottomNavigation(curHome: 0));
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: textColor,

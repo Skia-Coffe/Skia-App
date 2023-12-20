@@ -8,6 +8,7 @@ class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
   final phoneNo = TextEditingController();
   final name = TextEditingController();
+  String countryCode = "+91";
 
   Logger logger = Logger();
   void phoneAuthentication(String phoneNo) async {

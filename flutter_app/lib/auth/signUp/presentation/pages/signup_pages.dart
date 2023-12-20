@@ -8,13 +8,24 @@ import 'package:skia_coffee/auth/signUp/repository/authentication_repository.dar
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/auth/signUp/presentation/widgets/widgets.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final controller = Get.put(SignUpController());
   final repo = Get.put(AuthenticationRepository());
+
   String selectedCountryCode = '+91';
-  void onCountryChange(Country country) {
-    selectedCountryCode = country.dialCode;
+
+  void onCountryChange(Country country) async {
+    setState(() {
+      selectedCountryCode = country.dialCode;
+      SignUpController.instance.countryCode = selectedCountryCode;
+    });
   }
 
   String getPhoneNo() {
@@ -167,8 +178,10 @@ class SignUpPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: ElevatedButtonWidget(
-                      controller: controller.phoneNo,
-                      phoneNumber: getPhoneNo()),
+                    controller: controller.phoneNo,
+                    phoneNumber: getPhoneNo(),
+                    countryCode: selectedCountryCode,
+                  ),
                 ),
               ]),
         ),

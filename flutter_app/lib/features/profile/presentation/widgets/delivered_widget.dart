@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/core/constants/icons.dart';
-import 'package:skia_coffee/features/product/presentation/widgets/rating_widget.dart';
 import 'package:skia_coffee/features/profile/presentation/widgets/rating_widget.dart';
 
 class DeliveredWidget extends StatefulWidget {

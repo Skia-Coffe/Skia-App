@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
+import 'package:skia_coffee/features/favorites/presentation/pages/favorite_page.dart';
+import 'package:skia_coffee/features/product/presentation/pages/verified_address_page.dart';
 import 'package:skia_coffee/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:skia_coffee/features/profile/presentation/pages/orders_page.dart';
 
@@ -20,6 +22,18 @@ class ItemWigdet extends StatelessWidget {
         {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => OrdersPage()));
+        }
+        break;
+      case ("Wishlist"):
+        {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => FavoritesPage()));
+        }
+        break;
+      case ("Addresses"):
+        {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => VerifiedAddressPage()));
         }
     }
   }

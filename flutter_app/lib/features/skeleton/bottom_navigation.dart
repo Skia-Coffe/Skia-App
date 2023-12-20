@@ -9,6 +9,7 @@ import 'package:skia_coffee/features/profile/presentation/pages/profile_page.dar
 
 class BottomNavigation extends StatefulWidget {
   final int curHome;
+
   const BottomNavigation({super.key, required this.curHome});
 
   @override

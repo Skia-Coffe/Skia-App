@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skia_coffee/features/customizeBlend/presentation/pages/blend_name_page.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_bloc.dart';
-import 'package:skia_coffee/features/home/presentation/bloc/remote/remote_product_home_event.dart';
-import 'package:skia_coffee/features/home/presentation/widgets/coffee_card_item.dart';
+import 'package:skia_coffee/features/customizeBlend/presentation/pages/customize_blend.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_bloc.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/products/remote_product_home_event.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_quiz_event.dart';
+import 'package:skia_coffee/features/home/presentation/bloc/your_special_products_bloc/remote_recommendations_bloc.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/custom_blend.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/lets_go_button.dart';
 import 'package:skia_coffee/features/home/presentation/widgets/skia_special_products_home.dart';
+import 'package:skia_coffee/features/home/presentation/widgets/your_special_products.dart';
 import 'package:skia_coffee/features/product/presentation/pages/cart_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_home_page.dart';
@@ -245,28 +247,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: SizedBox(
-                    height: 220.0, // Adjust the height as needed
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5, // Adjust the number of cards as needed
-                      itemBuilder: (context, index) {
-                        return const CoffeCardItem(
-                            coffeeName: "Tojar",
-                            cost: 300,
-                            imageUrl: "https://example.com/product-image.jpg");
-                      },
-                    ),
-                  ),
+                BlocProvider<RemoteRecommendationHomeBloc>(
+                  create: (context) => s1()..add(const GetRecommendations()),
+                  child: const YourSpecialProductsHome(),
                 ),
               ],
             ),
           ),
         ),
-        const CustomBlendName(),
-        const ProductDetailsPage(),
+        const CustomBlendPage(),
+        const ProductDetailsPage(prod: "Toraja Sulawesi")
       ],
     );
   }

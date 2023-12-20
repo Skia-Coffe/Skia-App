@@ -29,8 +29,14 @@ class _ProductPageState extends State<ProductPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(
-                    width: 10,
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: textColor,
+                    ),
                   ),
                   const Image(image: AssetImage(icLogo)),
                   GestureDetector(
@@ -46,6 +52,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             surfaceTintColor: Colors.white,
+            automaticallyImplyLeading: false,
             centerTitle: true,
             backgroundColor: Colors.white,
             elevation: 1.0,

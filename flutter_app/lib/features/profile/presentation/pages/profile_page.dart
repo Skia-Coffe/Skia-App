@@ -51,10 +51,13 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.menu,
-                  color: textColor,
+                SizedBox(
+                  width: 10,
                 ),
+                // Icon(
+                //   Icons.menu,
+                //   color: textColor,
+                // ),
                 Image(image: AssetImage(icLogo)),
                 Icon(
                   Icons.shopping_bag_outlined,
@@ -82,15 +85,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 120,
+                      width: 220,
                       child: Text(
-                        "Hey $_savedText",
+                        "Hey\n$_savedText",
                         style: const TextStyle(
                           color: textColor,
                           fontSize: 40,
                           fontFamily: bold,
                         ),
-                        maxLines: 2,
+                        maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
