@@ -58,7 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 //   Icons.menu,
                 //   color: textColor,
                 // ),
-                Image(image: AssetImage(icLogo)),
+                Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: SizedBox(
+                      width: 48,
+                      height: 32,
+                      child:
+                          Image(image: AssetImage(icLogo), fit: BoxFit.cover)),
+                ),
                 Icon(
                   Icons.shopping_bag_outlined,
                   color: textColor,

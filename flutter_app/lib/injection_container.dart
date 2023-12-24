@@ -1,5 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:skia_coffee/features/favorites/business/repositories/add_wishlist_repository.dart';
+import 'package:skia_coffee/features/favorites/business/repositories/wishlist_repository.dart';
+import 'package:skia_coffee/features/favorites/business/usecases/add_wishlist_usecase.dart';
+import 'package:skia_coffee/features/favorites/business/usecases/get_wishlist.dart';
+import 'package:skia_coffee/features/favorites/data/repositories/add_wishlist_repository_impl.dart';
+import 'package:skia_coffee/features/favorites/data/repositories/wishlist_repository_impl.dart';
+import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_bloc.dart';
 import 'package:skia_coffee/features/home/business/repositories/home_repositories.dart';
 import 'package:skia_coffee/features/home/business/usecases/get_products_home.dart';
 import 'package:skia_coffee/features/home/business/usecases/get_recommendations.dart';
@@ -44,6 +51,8 @@ Future<void> initializeDependencies() async {
       RecommendationRespositoryImp());
   s1.registerSingleton<HomeReprository>(HomeRepositoryImpl());
   s1.registerSingleton<ProductsRepository>(ProductsRepositoryImpl());
+  s1.registerSingleton<WishlistRepository>(WishlistRepositoryImpl());
+  s1.registerSingleton<AddWishlistRepository>(AddWishlistRepositoryImpl());
 
   //usecase
   s1.registerSingleton<GetQuizUseCase>(GetQuizUseCase(s1()));
@@ -56,6 +65,8 @@ Future<void> initializeDependencies() async {
       GetRecommendationsHomeUseCase(s1()));
   s1.registerSingleton<GetProductDetialsUseCase>(
       GetProductDetialsUseCase(s1()));
+  s1.registerSingleton<GetWishlistUseCase>(GetWishlistUseCase(s1()));
+  s1.registerSingleton<AddWishlistUseCase>(AddWishlistUseCase(s1()));
 
   //Blocs
   s1.registerFactory<RemoteQuizBloc>(() => RemoteQuizBloc(s1()));
@@ -69,4 +80,6 @@ Future<void> initializeDependencies() async {
       () => RemoteRecommendationHomeBloc(s1()));
   s1.registerFactory<RemoteProductDetailsBloc>(
       () => RemoteProductDetailsBloc(s1()));
+  s1.registerFactory<RemoteWishlistBloc>(() => RemoteWishlistBloc(s1()));
+  s1.registerFactory<RemoteAddWishlistBloc>(() => RemoteAddWishlistBloc(s1()));
 }

@@ -37,10 +37,14 @@ class SplashScreen1 extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(
                         16, 50, 16, 16), // Adjust the padding as needed
-                    child: Image.asset("assets/images/logo.png"),
+                    child: SizedBox(
+                        width: 48,
+                        height: 32,
+                        child: Image(
+                            image: AssetImage(icLogo), fit: BoxFit.cover)),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(

@@ -1,7 +1,7 @@
 //images
 const String path = "assets/images";
 const icSplashScreen1 = "$path/Subtract1.png";
-const icLogo = "$path/logo.png";
+const icLogo = "$path/new_logo.png";
 const icSplashScreen2 = "$path/Subtract2.png";
 const icSplashScreen3 = "$path/Subtract3.png";
 const title = "$path/title.png";
