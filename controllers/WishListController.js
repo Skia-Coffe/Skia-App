@@ -1,45 +1,55 @@
 // Import the necessary models
 const UserWishlist = require("../models/UserWishlistmodel"); // Adjust the import path as needed
 
-// Get all wishlist items
+// Get all wishlist items for a specific user
 const getAllWishlistItems = async (req, res) => {
   try {
-    const wishlistItems = await UserWishlist.find({});
-    // Use the UserWishlist model
+    const userId = req.params.userId; // Assuming you pass the user ID as a parameter
+    const wishlistItems = await UserWishlist.find({ userID: userId });
     res.status(200).json(wishlistItems);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ msg: "Internal server error" });
   }
 };
 
-// Create a new wishlist item
+// Create a new wishlist item for a specific user
 const createWishlistItem = async (req, res) => {
-  const { user, product } = req.body;
+  const { userID, product } = req.body;
   try {
-    const wishlistItem = new UserWishlist({
-      user: user,
-      wishlistItems: [{ product: product }]
-    });
+    // Check if the user already exists
+    let wishlistItem = await UserWishlist.findOne({ userID });
+
+    if (wishlistItem) {
+      // If the user exists, add the product to the wishlistItems array
+      wishlistItem.wishlistItems.push({ product });
+    } else {
+      // If the user does not exist, create a new UserWishlist document
+      wishlistItem = new UserWishlist({
+        userID: userID,
+        wishlistItems: [{ product: product }],
+      });
+    }
 
     await wishlistItem.save();
 
     res.status(201).json(wishlistItem);
   } catch (error) {
     console.error(error);
-    // Log the error for debugging.
     res.status(500).json({ msg: "Internal server error" });
   }
 };
 
+
 const DeleteItem = async (req, res) => {
+  const userId = req.params.userId;
   const name = req.params.name;
-  if (!name) {
+  if (!userId || !name) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
   try {
-    // Ensure that userWishlistId and name are correct and exist in the database
     const wishlistItem = await UserWishlist.findOneAndUpdate(
-      { "wishlistItems.product": name }, // Match the user and the product name
+      { userID: userId, "wishlistItems.product": name },
       { $pull: { wishlistItems: { product: name } } },
       { new: true }
     );
