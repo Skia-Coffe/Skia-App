@@ -12,7 +12,6 @@ import 'package:skia_coffee/features/favorites/business/entities/wishlist_entity
 import 'package:skia_coffee/features/favorites/business/repositories/wishlist_repository.dart';
 import 'package:http/http.dart' as http;
 import 'package:skia_coffee/features/favorites/data/models/wishlist_model.dart';
-import 'package:skia_coffee/features/favorites/presentation/pages/favorite_page.dart';
 
 class WishlistRepositoryImpl implements WishlistRepository {
   Logger logger = Logger();
@@ -75,7 +74,6 @@ class WishlistRepositoryImpl implements WishlistRepository {
       );
       if (response.statusCode == 201) {
         Get.snackbar("Notification", "Item added successfully");
-        Get.off(const FavoritesPage());
       } else {
         logger.i("api error");
         logger.i(response.statusCode);
@@ -84,6 +82,23 @@ class WishlistRepositoryImpl implements WishlistRepository {
     } catch (e) {
       logger.i(e);
       Get.snackbar("Error", "Something went wrong!");
+    }
+  }
+
+  @override
+  Future<void> removeWishlist(String userID, String name) async {
+    try {
+      String url = "$baseUrl/wishlist/$userID/$name";
+      final res = await http.delete(Uri.parse(url));
+      if (res.statusCode == 200) {
+        Get.snackbar("Notification", "Item deleted successfully");
+      } else {
+        logger.i(res.statusCode);
+        Get.snackbar("Error", "Something went wrong");
+      }
+    } catch (e) {
+      logger.i(e);
+      Get.snackbar("Error", "Something went wrong");
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:skia_coffee/features/favorites/business/repositories/add_wishlis
 import 'package:skia_coffee/features/favorites/business/repositories/wishlist_repository.dart';
 import 'package:skia_coffee/features/favorites/business/usecases/add_wishlist_usecase.dart';
 import 'package:skia_coffee/features/favorites/business/usecases/get_wishlist.dart';
+import 'package:skia_coffee/features/favorites/business/usecases/remove_wishlist_usecase.dart';
 import 'package:skia_coffee/features/favorites/data/repositories/add_wishlist_repository_impl.dart';
 import 'package:skia_coffee/features/favorites/data/repositories/wishlist_repository_impl.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_bloc.dart';
@@ -67,6 +68,7 @@ Future<void> initializeDependencies() async {
       GetProductDetialsUseCase(s1()));
   s1.registerSingleton<GetWishlistUseCase>(GetWishlistUseCase(s1()));
   s1.registerSingleton<AddWishlistUseCase>(AddWishlistUseCase(s1()));
+  s1.registerSingleton<RemoveWishlistUseCase>(RemoveWishlistUseCase(s1()));
 
   //Blocs
   s1.registerFactory<RemoteQuizBloc>(() => RemoteQuizBloc(s1()));
@@ -80,5 +82,6 @@ Future<void> initializeDependencies() async {
       () => RemoteRecommendationHomeBloc(s1()));
   s1.registerFactory<RemoteProductDetailsBloc>(
       () => RemoteProductDetailsBloc(s1()));
-  s1.registerFactory<RemoteWishlistBloc>(() => RemoteWishlistBloc(s1(), s1()));
+  s1.registerFactory<RemoteWishlistBloc>(
+      () => RemoteWishlistBloc(s1(), s1(), s1()));
 }

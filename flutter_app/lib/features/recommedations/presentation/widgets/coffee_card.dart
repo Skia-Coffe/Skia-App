@@ -45,7 +45,7 @@ class _CoffeeCardState extends State<CoffeeCard> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        // _onClicked("Toraja Sulawesi89");
+                        _onClicked("Toraja Sulawesi89");
                       },
                       child:
                           const Icon(Icons.favorite_border, color: textColor))

@@ -5,4 +5,5 @@ import 'package:skia_coffee/features/favorites/business/entities/wishlist_entity
 abstract class WishlistRepository {
   Future<DataState<List<WishlistEntity>>> getWishlist(String userID);
   Future<void> addWishlist(AddWishlistEntity prod);
+  Future<void> removeWishlist(String userID, String name);
 }

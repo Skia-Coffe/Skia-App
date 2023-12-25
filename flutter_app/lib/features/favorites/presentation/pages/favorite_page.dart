@@ -8,7 +8,9 @@ import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_event.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_state.dart';
 import 'package:skia_coffee/features/favorites/presentation/widgets/coffee_card.dart';
+import 'package:skia_coffee/features/favorites/presentation/widgets/coffee_card_selected.dart';
 import 'package:skia_coffee/features/recommedations/presentation/widgets/add_to_card_button.dart';
+
 import 'package:skia_coffee/injection_container.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -57,7 +59,8 @@ class FavoritesPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return const Column(
                         children: [
-                          CoffeeCard(name: "Toraja Sulawesi", price: "Rs 300"),
+                          CoffeeCardSelected(
+                              name: "Toraja Sulawesi", price: "Rs 300"),
                           AddToCartButton(),
                         ],
                       );

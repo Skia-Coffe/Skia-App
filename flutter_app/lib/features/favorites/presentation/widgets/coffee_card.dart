@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/favorites/business/entities/add_wishlist_entity.dart';
+import 'package:skia_coffee/features/favorites/data/repositories/add_wishlist_repository_impl.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_bloc.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_event.dart';
+import 'package:skia_coffee/features/favorites/presentation/pages/favorite_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_page.dart';
+import 'package:skia_coffee/injection_container.dart';
 
 class CoffeeCard extends StatefulWidget {
   final String name, price;
@@ -17,17 +20,27 @@ class CoffeeCard extends StatefulWidget {
 }
 
 class _CoffeeCardState extends State<CoffeeCard> {
+  bool isSelected = false;
   final _auth = FirebaseAuth.instance;
   Logger logger = Logger();
 
-  void _onClicked(String prod) {
+  void _onClicked(String prod, BuildContext context) {
     logger.i(prod);
     String userID = _auth.currentUser!.uid;
     AddWishlistEntity data = AddWishlistEntity(prod: prod, userID: userID);
     // logger.i(data);
-    BlocProvider.of<RemoteWishlistBloc>(context)
-        .add(AddWishlistProducts(data, userID));
+    // BlocProvider.of<RemoteWishlistBloc>(context)
+    //     .add(AddWishlistProducts(data, userID));
+    // BlocProvider<RemoteWishlistBloc>(
+    //   create: (context) => s1()..add(AddWishlistProducts(data, userID)),
+    //   child: const FavoritesPage(),
+    // );
     // AddWishlistProducts(data, userID);
+    AddWishlistRepositoryImpl repo = AddWishlistRepositoryImpl();
+    repo.addWishlist(data);
+    setState(() {
+      isSelected = !isSelected;
+    });
   }
 
   @override
@@ -46,10 +59,11 @@ class _CoffeeCardState extends State<CoffeeCard> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        _onClicked("Toraja Sulawesi89");
+                        _onClicked("Toraja Sulawesi89", context);
                       },
-                      child:
-                          const Icon(Icons.favorite_border, color: textColor))
+                      child: isSelected
+                          ? const Icon(Icons.favorite, color: textColor)
+                          : const Icon(Icons.favorite_border, color: textColor))
                 ],
               ),
             ),

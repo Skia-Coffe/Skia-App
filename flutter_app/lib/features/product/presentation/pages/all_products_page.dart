@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/colors.dart';
+import 'package:skia_coffee/features/favorites/presentation/widgets/coffee_card.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_bloc.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/remote_product_home_state.dart';
 import 'package:skia_coffee/features/recommedations/presentation/widgets/add_to_card_button.dart';
-import 'package:skia_coffee/features/recommedations/presentation/widgets/coffee_card.dart';
 
 class AllProducts extends StatefulWidget {
   const AllProducts({super.key});

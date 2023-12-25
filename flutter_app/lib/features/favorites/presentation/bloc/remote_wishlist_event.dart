@@ -14,3 +14,8 @@ class AddWishlistProducts extends RemoteWishlistEvent {
   const AddWishlistProducts(AddWishlistEntity item, String userID)
       : super(prod: item, userID: userID);
 }
+
+class RemoveWishlisProducts extends RemoteWishlistEvent {
+  const RemoveWishlisProducts(AddWishlistEntity item, String userID)
+      : super(prod: item, userID: userID);
+}
