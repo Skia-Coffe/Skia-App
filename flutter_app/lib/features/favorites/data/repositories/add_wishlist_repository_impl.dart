@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/favorites/business/entities/add_wishlist_entity.dart';
@@ -13,8 +12,9 @@ class AddWishlistRepositoryImpl implements AddWishlistRepository {
     Logger logger = Logger();
     try {
       String url = "$baseUrl/wishlist/add";
-      final response = await http
-          .post(Uri.parse(url), headers: {'Content-Type': 'application/json'});
+      logger.i("hi");
+      final response = await http.post(Uri.parse(url),
+          headers: {'Content-Type': 'application/json'}, body: item.toJson());
       if (response.statusCode == 200) {
         Get.snackbar("Notification", "Item added successfully");
         Get.off(const FavoritesPage());
@@ -22,6 +22,7 @@ class AddWishlistRepositoryImpl implements AddWishlistRepository {
         Get.snackbar("Error", "Something went wrong!");
       }
     } catch (e) {
+      logger.i("yaha hu");
       logger.i(e);
       Get.snackbar("Error", "Something went wrong!");
     }

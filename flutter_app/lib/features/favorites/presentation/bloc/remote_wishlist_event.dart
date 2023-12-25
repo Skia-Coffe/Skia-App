@@ -2,19 +2,15 @@ import 'package:skia_coffee/features/favorites/business/entities/add_wishlist_en
 
 abstract class RemoteWishlistEvent {
   final String? userID;
-  const RemoteWishlistEvent({this.userID});
+  final AddWishlistEntity? prod;
+  const RemoteWishlistEvent({this.userID, this.prod});
 }
 
 class GetWishlistProducts extends RemoteWishlistEvent {
   const GetWishlistProducts(String userID) : super(userID: userID);
 }
 
-abstract class RemoteAddWishlistEvent {
-  final AddWishlistEntity? addWishlistEntity;
-  const RemoteAddWishlistEvent({this.addWishlistEntity});
-}
-
-class AddWishlistProducts extends RemoteAddWishlistEvent {
-  const AddWishlistProducts(AddWishlistEntity item)
-      : super(addWishlistEntity: item);
+class AddWishlistProducts extends RemoteWishlistEvent {
+  const AddWishlistProducts(AddWishlistEntity item, String userID)
+      : super(prod: item, userID: userID);
 }

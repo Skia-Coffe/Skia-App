@@ -80,6 +80,5 @@ Future<void> initializeDependencies() async {
       () => RemoteRecommendationHomeBloc(s1()));
   s1.registerFactory<RemoteProductDetailsBloc>(
       () => RemoteProductDetailsBloc(s1()));
-  s1.registerFactory<RemoteWishlistBloc>(() => RemoteWishlistBloc(s1()));
-  s1.registerFactory<RemoteAddWishlistBloc>(() => RemoteAddWishlistBloc(s1()));
+  s1.registerFactory<RemoteWishlistBloc>(() => RemoteWishlistBloc(s1(), s1()));
 }

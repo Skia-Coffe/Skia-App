@@ -9,9 +9,11 @@ import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist
 class RemoteWishlistBloc
     extends Bloc<RemoteWishlistEvent, RemoteWishlistState> {
   final GetWishlistUseCase _getWishlistUseCase;
-  RemoteWishlistBloc(this._getWishlistUseCase)
+  final AddWishlistUseCase _addWishlistUseCase;
+  RemoteWishlistBloc(this._getWishlistUseCase, this._addWishlistUseCase)
       : super(const RemoteWishlistStateLoading()) {
     on<GetWishlistProducts>(onGetWishlistProducts);
+    on<AddWishlistProducts>(onAddWishlistProducts);
   }
 
   Logger logger = Logger();
@@ -28,20 +30,18 @@ class RemoteWishlistBloc
       emit(RemoteWishlistStateFailed(dataState.error!));
     }
   }
-}
-
-class RemoteAddWishlistBloc
-    extends Bloc<RemoteAddWishlistEvent, RemoteWishlistState> {
-  final AddWishlistUseCase _addWishlistUseCase;
-  RemoteAddWishlistBloc(this._addWishlistUseCase)
-      : super(const RemoteWishlistStateLoading()) {
-    on<AddWishlistProducts>(onAddWishlistProducts);
-  }
-
-  Logger logger = Logger();
 
   void onAddWishlistProducts(
       AddWishlistProducts products, Emitter<RemoteWishlistState> emit) async {
-    await _addWishlistUseCase(params: products.addWishlistEntity);
+    await _addWishlistUseCase(params: products.prod);
+    final dataState = await _getWishlistUseCase(params: products.userID);
+    if (dataState is DataSuccess && dataState.data!.isNotEmpty) {
+      emit(RemoteWishlistStateDone(dataState.data!));
+    }
+
+    if (dataState is DataFailed) {
+      logger.i(dataState.error);
+      emit(RemoteWishlistStateFailed(dataState.error!));
+    }
   }
 }

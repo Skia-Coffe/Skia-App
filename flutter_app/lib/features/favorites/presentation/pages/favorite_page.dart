@@ -7,8 +7,8 @@ import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_bloc.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_event.dart';
 import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_state.dart';
+import 'package:skia_coffee/features/favorites/presentation/widgets/coffee_card.dart';
 import 'package:skia_coffee/features/recommedations/presentation/widgets/add_to_card_button.dart';
-import 'package:skia_coffee/features/recommedations/presentation/widgets/coffee_card.dart';
 import 'package:skia_coffee/injection_container.dart';
 
 class FavoritesPage extends StatelessWidget {
