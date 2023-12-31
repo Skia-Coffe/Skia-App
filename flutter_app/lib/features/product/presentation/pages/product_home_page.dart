@@ -38,7 +38,11 @@ class _ProductPageState extends State<ProductPage> {
                       color: textColor,
                     ),
                   ),
-                  const Image(image: AssetImage(icLogo)),
+                  const SizedBox(
+                      width: 48,
+                      height: 32,
+                      child:
+                          Image(image: AssetImage(icLogo), fit: BoxFit.cover)),
                   GestureDetector(
                     onTap: () {
                       Get.to(const CartPage());

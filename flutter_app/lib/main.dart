@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home:
           isLogin ? const BottomNavigation(curHome: 0) : const SplashScreen1(),
+      // const BottomNavigation(curHome: 0),
     );
 
     //  FutureBuilder(

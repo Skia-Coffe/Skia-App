@@ -43,7 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(width: 10),
-                  const Image(image: AssetImage(icLogo)),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: SizedBox(
+                        width: 48,
+                        height: 32,
+                        child: Image(
+                            image: AssetImage(icLogo), fit: BoxFit.cover)),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.to(const CartPage());

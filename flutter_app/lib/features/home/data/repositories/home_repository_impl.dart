@@ -32,7 +32,7 @@ class HomeRepositoryImpl implements HomeReprository {
             .map((dynamic data) => ProductModel.fromJson(data))
             .toList();
 
-        logger.d(products);
+        logger.i(products);
         return DataSuccess(products);
       } else {
         return DataFailed(

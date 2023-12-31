@@ -33,12 +33,16 @@ class _SplashScreen3State extends State<SplashScreen3> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
-                    child: Image.asset("assets/images/logo.png"),
+                    padding: EdgeInsets.fromLTRB(16, 50, 16, 16),
+                    child: SizedBox(
+                        width: 48,
+                        height: 32,
+                        child: Image(
+                            image: AssetImage(icLogo), fit: BoxFit.cover)),
                   ),
                 ],
               ),
