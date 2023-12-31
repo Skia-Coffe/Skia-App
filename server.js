@@ -11,6 +11,7 @@ const ProductRouter = require("./routes/ProductRouter");
 const WishListRouter = require("./routes/WishListRouter");
 const QuizRouter = require("./routes/QuizRouter");
 const CustomBlendRouter = require("./routes/CustomBlenRouter");
+const ReviewRouter = require("./routes/ReviewRouter");
 const db = require("./db");
 app.use(cors());
 
@@ -23,7 +24,7 @@ app.use("/product", ProductRouter);
 app.use("/wishlist", WishListRouter);
 app.use("/quiz" , QuizRouter);
 app.use("/customblend" , CustomBlendRouter);
-
+app.use("/review", ReviewRouter);
 app.use("/", (req , res) => {
   res.send("server is up and running");
 });
