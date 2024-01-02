@@ -1,13 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:skia_coffee/features/favorites/business/entities/add_wishlist_entity.dart';
+import 'package:skia_coffee/features/favorites/data/repositories/add_wishlist_repository_impl.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_bloc.dart';
 import 'package:skia_coffee/features/product/presentation/bloc/product_details/remote_product_details_event.dart';
 import 'package:skia_coffee/features/product/presentation/pages/cart_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_content.dart';
 import 'package:skia_coffee/injection_container.dart';
-
 import '../../../../core/constants/consts.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -20,12 +22,22 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   String? selectedValue = "1 bag";
+  bool isSelected = false;
+  final _auth = FirebaseAuth.instance;
+  void _onClicked(String prod, BuildContext context) {
+    // logger.i(prod);
+    String userID = _auth.currentUser!.uid;
+    AddWishlistEntity data = AddWishlistEntity(prod: prod, userID: userID);
+    AddWishlistRepositoryImpl repo = AddWishlistRepositoryImpl();
+    repo.addWishlist(data);
+    setState(() {
+      isSelected = !isSelected;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // double w = ((MediaQuery.of(context).size.width) / 390);
-    // double h = ((MediaQuery.of(context).size.height) / 855);
     Logger logger = Logger();
-    // logger.i(widget.prod);
     return Scaffold(
         appBar: AppBar(
           title: Padding(
@@ -69,19 +81,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 10),
                   child: FloatingActionButton(
-                    onPressed: () {},
+                    elevation: 30,
+                    onPressed: () {
+                      _onClicked(widget.prod, context);
+                    },
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.favorite_border, color: textColor),
+                    child: isSelected
+                        ? const Icon(
+                            Icons.favorite,
+                            color: textColor,
+                          )
+                        : const Icon(Icons.favorite_border, color: textColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    width: 280 * ((MediaQuery.of(context).size.width) / 390),
+                    width: 290 * ((MediaQuery.of(context).size.width) / 390),
                     height: 50,
                     child: FloatingActionButton(
+                      elevation: 40,
                       onPressed: () {
                         Navigator.push(
                             context,
