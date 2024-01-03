@@ -65,7 +65,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                 children: [
                   Image.asset(imBgCorousel1),
                   const Padding(
-                    padding: const EdgeInsets.only(top: 60),
+                    padding: EdgeInsets.only(top: 60),
                     child: Column(
                       children: [
                         SizedBox(
@@ -75,7 +75,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                               // image: NetworkImage(p.imageUrl!),
                               fit: BoxFit.cover,
                             )),
-                        const SizedBox(
+                        SizedBox(
                             height: 40,
                             child: Image(
                               image: AssetImage(imEllipseBg),
