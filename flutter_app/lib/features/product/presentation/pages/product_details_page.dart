@@ -127,5 +127,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           create: (context) => s1()..add(GetProductDetails(widget.prod)),
           child: const ProductDetailsContent(),
         ));
+    // body: ProductDetailsContent());
   }
 }

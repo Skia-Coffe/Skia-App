@@ -18,23 +18,18 @@ class _ReviewWidgetState extends State<ReviewWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ClipOval(
-                child: CircleAvatar(
-                  radius: 30.0, // Adjust the radius as needed
-                  backgroundImage: AssetImage(icCoffeeImage),
-                ),
-              ),
-              SizedBox(height: 4)
-            ],
-          ),
-          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  "Vivek",
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: 10),
                 Text(
                   "Sourced from the world's finest regions, our beans promise a symphony of flavors. From the delicate, floral notes of our light roast to the bold, smoky depths of our dark roast, each cup is a journey of taste.",
                   overflow: TextOverflow.ellipsis, // Set overflow behavior

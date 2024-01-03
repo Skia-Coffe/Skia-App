@@ -51,7 +51,10 @@ class _CustomBlendPageState extends State<CustomBlendPage> {
                   color: textColor,
                 ),
               ),
-              const Image(image: AssetImage(icLogo)),
+              const SizedBox(
+                  width: 48,
+                  height: 32,
+                  child: Image(image: AssetImage(icLogo), fit: BoxFit.cover)),
               const Icon(
                 Icons.shopping_bag_outlined,
                 color: textColor,

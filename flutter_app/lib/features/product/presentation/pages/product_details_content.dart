@@ -91,7 +91,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+                  padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -260,7 +260,47 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 16, top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Customers Reviews",
+                    style: TextStyle(
+                      fontFamily: bold,
+                      fontSize: 24,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          side: const BorderSide(
+                            color: textColor,
+                          ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.add, color: textColor),
+                          SizedBox(width: 4),
+                          Text(
+                            "Add Review",
+                            style: TextStyle(
+                              fontFamily: bold,
+                              fontSize: 14,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 16, bottom: 0),
               child: Container(
                   decoration: BoxDecoration(
                     color: greyBg,
@@ -272,10 +312,13 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                         offset: const Offset(0, 6),
                       ),
                     ],
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         const Row(
@@ -294,16 +337,15 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                         ),
                         Column(
                           children: List.generate(
-                            3,
-                            (index) => index == 2
-                                ? const ViewAllButton()
-                                : const ReviewWidget(),
+                            2,
+                            (index) => const ReviewWidget(),
                           ),
                         ),
                       ],
                     ),
                   )),
             ),
+            const SizedBox(width: double.infinity, child: ViewAllButton()),
             const SizedBox(
               height: 100,
             )

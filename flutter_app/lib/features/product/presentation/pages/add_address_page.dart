@@ -24,6 +24,27 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
+      appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.symmetric(vertical: 14),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text("Address",
+                style: TextStyle(
+                    fontFamily: regular,
+                    fontSize: 24,
+                    color: textColor,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w500)),
+          ]),
+        ),
+        surfaceTintColor: Colors.white,
+        centerTitle: true,
+        backgroundColor: greyBg,
+        elevation: 1.0,
+        toolbarHeight: 60 * ((MediaQuery.of(context).size.height) / 844),
+        shadowColor: Colors.white,
+      ),
       body: Column(
         children: [
           Expanded(
