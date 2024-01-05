@@ -1,61 +1,53 @@
 const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema(
-  {
-    product: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    rating: {
-      type: Number,
-      required: true
-    },
-    flavour: {
-      type: String,
-      required: true
-    },
-    roast: {
-      type: String,
-      required: true
-    },
-    brew_method: {
-      type: String,
-      required: true
-    },
-    strong: {
-      type: String,
-      required: true
-    },
-    additional_flavour: {
-      type: String,
-      required: true
-    },
-    price: {
-      type: Number,
-      required: true
-    },
-    imageUrl: {
-      type: String,
-      required: true
-    },
-    quantity: {
-      type: Number,
-      required: true
-    },
-    productInfo: {
-      type: String
-    }
+const productSchema = new mongoose.Schema({
+  Product: {
+    type: String,
+    required: true,
+  
   },
-  {
-    timestamps: true
-  }
-);
+  rating: {
+    type: Number,
+  },
+  Cupping_Score:{
+    type: Number,
+    required: true,
+  },
+  Sensory:{
+    type: String,
+    required: true,
+  },
+  Roast:{
+    type: String,
+    required: true,
+  },
+  Brew_Method:{
+    type: String,
+    required: true,
+  },
+  price:{
+    type: Number,
+    required: true,
+  },
+  Image:{
+    type: String,
+    required: true,
+  },
+  Quantity:{
+    type: String,
+    required: true,
+    enum: ["250g", "500g", "750g", "1kg"]
 
-productSchema.index({ product: 'text' });
+  },
+  Product_Info:{
+    type: String,
+    required: true,
+  },
+  
+});
 
+productSchema.index({ product: "text" });
 
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
-
