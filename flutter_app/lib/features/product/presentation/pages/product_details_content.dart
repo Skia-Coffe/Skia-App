@@ -347,7 +347,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
             ),
             const SizedBox(width: double.infinity, child: ViewAllButton()),
             const SizedBox(
-              height: 100,
+              height: 150,
             )
           ]),
         );

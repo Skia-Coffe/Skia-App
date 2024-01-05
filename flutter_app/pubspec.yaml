@@ -41,7 +41,7 @@ dependencies:
   svg_flutter: ^0.0.1
   flutter_svg: ^2.0.9
   provider: ^6.1.1
-  syncfusion_flutter_charts: ^23.1.44
+  syncfusion_flutter_charts: ^24.1.44+1
   pie_chart: ^5.3.2
 
   #state management
@@ -58,7 +58,7 @@ dependencies:
   json_serializable: ^6.7.1
   get_it: ^7.6.4
   logger: ^2.0.2+1
-  http: ^1.1.2
+  http: ^1.1.0
   shared_preferences: ^2.2.2
   firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
@@ -79,7 +79,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   retrofit_generator: ^8.0.4
   build_runner: ^2.4.6
   floor_generator: ^1.4.2

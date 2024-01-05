@@ -26,7 +26,7 @@ class _ViewAllButtonState extends State<ViewAllButton> {
       Uri.parse(url),
     );
 
-    logger.i(res.statusCode);
+    logger.i(res.body);
     if (res.statusCode == 200) {
       // ignore: use_build_context_synchronously
       showDialog(
@@ -35,9 +35,22 @@ class _ViewAllButtonState extends State<ViewAllButton> {
             return BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
               child: const AlertDialog(
-                  title: SingleChildScrollView(
-                child: Column(
-                  children: [ReviewWidget()],
+                  title: SizedBox(
+                height: 600,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                      ReviewWidget(),
+                    ],
+                  ),
                 ),
               )),
             );

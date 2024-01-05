@@ -14,6 +14,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late SharedPreferences _prefs;
   String _savedText = '';
+  String _savedNumber = '';
   void initState() {
     super.initState();
     _initPrefs();
@@ -24,6 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // Retrieve the saved text from SharedPreferences
     setState(() {
       _savedText = _prefs.getString('UserName') ?? '';
+      _savedNumber = _prefs.getString('PhoneNumber') ?? '';
     });
   }
 
@@ -113,23 +115,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 4),
+                      padding: const EdgeInsets.only(right: 4),
                       child: Text(
-                        "Logged in via vivek23@gmail.com",
-                        style: TextStyle(
+                        "Logged in via $_savedNumber",
+                        style: const TextStyle(
                             color: textLightColor,
                             fontSize: 12,
                             fontStyle: FontStyle.normal,
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       child: SizedBox(
                         width: 80,
                         child: Divider(
