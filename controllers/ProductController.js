@@ -14,6 +14,7 @@ const getAllProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   const {
     Product,
+    Dairy_Preference,
     Cupping_Score,
     Sensory,
     Roast,
@@ -25,6 +26,7 @@ const createProduct = async (req, res) => {
   } = req.body;
   if (
     !Product ||
+    !Dairy_Preference ||
     !Cupping_Score ||
     !Sensory ||
     !Roast ||
@@ -39,6 +41,7 @@ const createProduct = async (req, res) => {
   try {
     const product = await ProductSchema.create({
       Product,
+      Dairy_Preference,
       Cupping_Score,
       Sensory,
       Roast,
@@ -60,15 +63,21 @@ const getProductByName = async (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  const result = await ProductSchema.findOne({ Product: prod });
-  if (result) {
-    res.status(200).json({
-      result
-    });
-  } else {
-    res.send(404).json({ msg: "Product not found" });
+  try {
+    const result = await ProductSchema.findOne({ Product: prod });
+    if (result) {
+      res.status(200).json({
+        result
+      });
+    } else {
+      res.status(404).json({ msg: "Product not found" }); // Fixed the status code
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Internal Server Error" });
   }
 };
+
 
 // search for a product on the basis of a query parameter
 const ProductSearch = async (req, res) => {

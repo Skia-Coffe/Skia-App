@@ -6,6 +6,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   
   },
+  Dairy_Preference: {
+    type: String,
+    required: true,
+  },
   rating: {
     type: Number,
   },
