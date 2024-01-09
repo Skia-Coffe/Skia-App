@@ -1,15 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:skia_coffee/core/constants/consts.dart';
 import 'package:skia_coffee/features/favorites/business/entities/add_wishlist_entity.dart';
 import 'package:skia_coffee/features/favorites/data/repositories/add_wishlist_repository_impl.dart';
-import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_bloc.dart';
-import 'package:skia_coffee/features/favorites/presentation/bloc/remote_wishlist_event.dart';
-import 'package:skia_coffee/features/favorites/presentation/pages/favorite_page.dart';
 import 'package:skia_coffee/features/product/presentation/pages/product_details_page.dart';
-import 'package:skia_coffee/injection_container.dart';
 
 class CoffeeCard extends StatefulWidget {
   final String name, price;
@@ -59,7 +54,7 @@ class _CoffeeCardState extends State<CoffeeCard> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        _onClicked("Toraja Sulawesi89", context);
+                        _onClicked(widget.name, context);
                       },
                       child: isSelected
                           ? const Icon(Icons.favorite, color: textColor)

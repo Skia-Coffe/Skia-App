@@ -57,6 +57,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
   @override
   Future<DataState<ProductDetailsEntity>> getProductsDetails(
       String prod) async {
+    prod = "100%Arabic";
     try {
       String url = "$baseUrl/product/$prod";
       final response = await http

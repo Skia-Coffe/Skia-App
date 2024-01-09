@@ -53,7 +53,7 @@ class _SkiaSpecialProductsHomeState extends State<SkiaSpecialProductsHome> {
               itemBuilder: (context, index) {
                 String name = products![index].product!;
                 double cost = products[index].price!;
-                String imageUrl = products[index].imageUrl!;
+                String imageUrl = products[index].image!;
                 return CoffeCardItem(
                     coffeeName: name, cost: cost, imageUrl: imageUrl);
               },
