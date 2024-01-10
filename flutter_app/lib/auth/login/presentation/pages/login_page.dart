@@ -49,9 +49,13 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
-                  child: Image.asset(icLogo),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 60, 16, 16),
+                  child: SizedBox(
+                      width: 48,
+                      height: 32,
+                      child:
+                          Image(image: AssetImage(icLogo), fit: BoxFit.cover)),
                 ),
                 Column(
                   children: [

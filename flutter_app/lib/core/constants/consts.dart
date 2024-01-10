@@ -3,7 +3,7 @@ export './colors.dart';
 export './styles.dart';
 export './texts.dart';
 
-const String baseUrl = "http://localhost:8000";
+const String baseUrl = "http://192.168.232.216:8000";
 
 // void changeScreen(BuildContext context) {
 //     Navigator.push(
