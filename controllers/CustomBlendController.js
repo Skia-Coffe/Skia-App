@@ -1,37 +1,66 @@
 
-const CustomBlend = require('../models/CustomBlendModel');
+
 const UserModel = require('../models/UserModel');
+const UserCustomBlend = require('../models/CustomBlendModel');
 const uuid = require('uuid');
 
+// getting all custom blends of the user
 const getCustomBlends = async (req, res) => {
+    const { UserId } = req.params;
+    if (!UserId) {
+        return res.status(400).json({ msg: 'Please enter all fields' });
+    }
     try {
-        const customBlends = await CustomBlend.find({});
-        res.status(200).json(customBlends);
+        const CustomBlends = await UserCustomBlend.findOne({ userID: UserId });
+        if (CustomBlends) {
+            return res.status(200).json(CustomBlends);
+        }
+        else {
+            return res.status(400).json({ msg: 'No custom blends found' });
+        }
     } catch (error) {
         res.status(500).json({ msg: 'Internal server error' });
     }
 }
 
+
+// creating a new custom blend of the user
 const createCustomBlend = async (req, res) => {
-    const { user, blendName, blendInfo,blendFlavour,blendRoast } = req.body;
-    if (!user || !blendName || !blendInfo || !blendFlavour || !blendRoast) {
+    const { userID, blendName, beanInfo, blendFlavour, blendRoast } = req.body;
+    if (!userID || !blendName || !beanInfo || !blendFlavour || !blendRoast) {
         return res.status(400).json({ msg: 'Please enter all fields' });
     }
-    const userExists = await UserModel.findOne({ userID });
-    if (!userExists) {
-        return res.status(400).json({ msg: 'User does not exist' });
+    try {
+        const user = await UserCustomBlend.findOne({ userID: userID });
+        if (user) {
+            const newCustomBlend = {
+                blendId:"SkiaCustom" +  uuid.v4(),
+                blendName,
+                beanInfo,
+                blendFlavour,
+                blendRoast
+            }
+            user.CustomBlendItems.push(newCustomBlend);
+            await user.save();
+            return res.status(201).json(user);
+        }
+        else {
+            const newCustomBlend = {
+                userID,
+                CustomBlendItems: [{
+                    blendId: "SkiaCustom-"+ uuid.v4(),
+                    blendName,
+                    beanInfo,
+                    blendFlavour,
+                    blendRoast
+                }]
+            }
+            const CustomBlend = await UserCustomBlend.create(newCustomBlend);
+            return res.status(201).json(CustomBlend);
+        }
+    } catch (error) {
+        res.status(500).json({ msg: 'Internal server error' });
     }
-    const newCustomBlend = await CustomBlend.create({
-        user,
-        blendName,
-        blendInfo,
-        blendFlavour,
-        blendRoast,
-        blendId: "SkiaCustom-"+ uuid.v4()
-        
-    });
-    
-    res.status(201).json(newCustomBlend);
 }
 
 module.exports = { getCustomBlends , createCustomBlend};

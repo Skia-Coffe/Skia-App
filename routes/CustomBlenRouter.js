@@ -6,7 +6,7 @@ const {getCustomBlends,createCustomBlend} = require("../controllers/CustomBlendC
 
 
 
-router.route('/').get(getCustomBlends);
+router.route('/:UserId').get(getCustomBlends);
 router.route('/create').post(createCustomBlend);
 
 module.exports = router;

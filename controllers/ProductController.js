@@ -59,12 +59,13 @@ const createProduct = async (req, res) => {
 // getting a product by name
 const getProductByName = async (req, res) => {
   const { prod } = req.params;
-  if (!prod) {
+  if (!prod) {    
     return res.status(400).json({ msg: "Please enter all fields" });
   }
+  
 
   try {
-    const result = await ProductSchema.findOne({ Product: prod });
+    const result = await ProductSchema.findOne({ Product: prod});
     if (result) {
       res.status(200).json({
         result

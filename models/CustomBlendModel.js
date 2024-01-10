@@ -1,43 +1,40 @@
 const mongoose = require("mongoose");
 
-const CustomBlendSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
-      required: true
-    },
-    blendId: {
-      type: String,
-      unique: true
-    },
-    blendName: {
-      type: String,
-    },
-
-    blendInfo: {
-      type: String,
-      required: true,
-      enum:["Arabica","Robusta","Chichory"],
-      default:"Arabica"
-    },
-
-    blendFlavour: {
-      type: String,
-      required: true
-    },
-    blendRoast: {
-      type: String,
-      required: true
-    },
-
-    
+// Define the CustomBlendSchema
+const CustomBlendSchema = new mongoose.Schema({
+  blendId: {
+    type: String,
+    unique: true,
   },
-  {
-    timestamps: true
-  }
-);
+  blendName: {
+    type: String,
+    required: true,
+  },
+  beanInfo: {
+    type: String,
+    required: true,
+  },
+  blendFlavour: {
+    type: String,
+    required: true,
+  },
+  blendRoast: {
+    type: String,
+    required: true,
+  },
+});
 
-const CustomBlend = mongoose.model("CustomBlend", CustomBlendSchema);
+// Define the UserCustomBlendSchema using CustomBlendSchema
+const UserCustomBlendSchema = new mongoose.Schema({
+  userID: {
+    type: String,
+    required: true,
+  },
+  CustomBlendItems: [CustomBlendSchema], // Use CustomBlendSchema here
+});
 
-module.exports = CustomBlend;
+// Create the model for UserCustomBlend using UserCustomBlendSchema
+const UserCustomBlend = mongoose.model("UserCustomBlend", UserCustomBlendSchema);
+
+// Export the model
+module.exports = UserCustomBlend;
