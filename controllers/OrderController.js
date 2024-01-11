@@ -1,99 +1,128 @@
 const OrderSchema = require("../models/OrderModel");
 const { v4: uuidv4 } = require("uuid");
+const ProductSchema = require("../models/ProductModel"); // Importing the Product Schema
 // Importing the UUID v4 generator
 
-const createOrder = async (req, res) => {
-  const { user, products } = req.body;
-
-  if (!user || !products) {
+// Getting all orders of the user
+const GetAllOrders = async (req, res) => {
+  const { userID } = req.params;
+  if (!userID) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
-
-  const orderID = "Skia-" + uuidv4(); // Generate a UUID v4
-  const newOrder = await OrderSchema.create({ orderID, user, products });
-
-  if (newOrder) {
-    res.status(201).json({
-      orderid: orderID,
-      user: newOrder.user,
-      products: newOrder.products,
-      status: newOrder.status,
-      orderDate: newOrder.orderDate
-    });
-  } else {
-    res.status(400).json({ msg: "Order not created" });
-  }
-};
-
-const getOrderByID = async (req, res) => {
-  const { name } = req.params;
-  if (!name) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-
   try {
-    const order = await OrderSchema.findOne({
-      $or: [{ orderID: name }, { name: name }]
-    });
-    if (order) {
-      res.status(200).json({
-        orderId: order.orderID,
-        user: order.user,
-        products: order.products,
-        status: order.status,
-        orderDate: order.orderDate
-      });
+    const user = await OrderSchema.findOne({ userID: userID });
+    if (user) {
+      return res.status(200).json(user);
     } else {
-      res.status(404).json({ msg: "Order not found" });
+      return res.status(400).json({ msg: "No orders found" });
     }
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
 };
 
-// function to change the order status
-const changeOrderStatus = async (req, res) => {
-  const { status } = req.body;
-  const { orderID } = req.params;
-  if (!status || !orderID) {
-    return res
-      .status(400)
-      .json({ msg: "Please give an proper input for status and orderID" });
+// Creating a new order of the user
+const CreateOrder = async (req, res) => {
+  const {userID,product,quantity,status,deliveryAddress} = req.body;
+  if(!userID || !product || !quantity ||   !status || !deliveryAddress){
+    return res.status(400).json({msg:"Please enter all fields"});
   }
 
-  try {
-    const order = await OrderSchema.findOne({ orderID: orderID });
-    if (order) {
-      order.status = status;
-      const updatedOrder = await order.save();
-      res.status(200).json({
-        orderId: updatedOrder.orderID,
-        user: updatedOrder.user,
-        products: updatedOrder.products,
-        status: updatedOrder.status,
-        orderDate: updatedOrder.orderDate
-      });
-    } else {
-      res.status(404).json({ msg: "Order not found" });
+  const exists = await OrderSchema.findOne({userID:userID});
+  const cost = await ProductSchema.findOne({Product:product});
+  if(exists){
+    const newOrder = {
+      orderID:"SkiaOrder" + uuidv4(),
+      product,
+      quantity,
+      Price : cost.price * quantity,
+      status,
+      deliveryAddress
     }
-  } catch (err) {
-    res.status(404).send(err.message);
+    exists.orders.push(newOrder);
+    await exists.save();
+    return res.status(201).json(exists);
+  }
+  else{
+    const newOrder = {
+      userID,
+      orders: [
+        {
+          orderID: "SkiaOrder" + uuidv4(),
+          product,
+          quantity,
+          Price: cost.price * quantity,
+          status,
+          deliveryAddress
+
+        },
+      ],
+    };
+    const order = await OrderSchema.create(newOrder);
+    return res.status(201).json(order);
+
   }
 };
 
-// getting all the orders
-const getAllOrders = async (req, res) => {
+// Updating the order status
+const UpdateOrderStatus = async (req, res) => {
+  const { userID, orderID, status } = req.body;
+  if (!userID || !orderID || !status) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
   try {
-    const orders = await OrderSchema.find({});
-    res.status(200).json(orders);
-  } catch (err) {
-    res.status(404).send(err.message);
+    const user = await OrderSchema.findOne({ userID: userID });
+    if (user) {
+      const order = user.orders.find((order) => order.orderID === orderID);
+      if (order) {
+        order.status = status;
+        await user.save();
+        return res.status(201).json(user);
+      } else {
+        return res.status(400).json({ msg: "No order found" });
+      }
+    } else {
+      return res.status(400).json({ msg: "No user found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Internal server error" });
   }
 };
+
+// Deleting an order
+const DeleteOrder = async (req, res) => {
+  const { userID, orderID } = req.body;
+  if (!userID || !orderID) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+  try {
+    const user = await OrderSchema.findOne({ userID: userID });
+    if (user) {
+      if (user.orders && user.orders.length > 0) {
+        const orderIndex = user.orders.findIndex((order) => order.orderID == orderID);
+        if (orderIndex !== -1) {
+          user.orders.splice(orderIndex, 1);
+          await user.save();
+          return res.status(200).json(user);
+        } else {
+          return res.status(400).json({ msg: "No order found" });
+        }
+      } else {
+        return res.status(400).json({ msg: "No orders found for the user" });
+      }
+    } else {
+      return res.status(400).json({ msg: "No user found" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
+
 
 module.exports = {
-  createOrder,
-  getOrderByID,
-  changeOrderStatus,
-  getAllOrders
+  GetAllOrders,
+  CreateOrder,
+  UpdateOrderStatus,
+  DeleteOrder,
 };
