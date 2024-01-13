@@ -20,7 +20,8 @@ import '../../../../core/constants/consts.dart';
 
 class HomeScreen extends StatefulWidget {
   final int currentPage;
-  const HomeScreen({super.key, required this.currentPage});
+  final String? prod;
+  const HomeScreen({super.key, required this.currentPage, this.prod});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -263,7 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         const CustomBlendPage(),
-        const ProductDetailsPage(prod: "Toraja Sulawesi")
+        ProductDetailsPage(
+            prod: widget.prod == null ? "100 Percent Arabica" : widget.prod!)
       ],
     );
   }

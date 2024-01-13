@@ -9,8 +9,9 @@ import 'package:skia_coffee/features/profile/presentation/pages/profile_page.dar
 
 class BottomNavigation extends StatefulWidget {
   final int curHome;
+  final String? name;
 
-  const BottomNavigation({super.key, required this.curHome});
+  const BottomNavigation({super.key, required this.curHome, this.name});
 
   @override
   State<BottomNavigation> createState() => _BottomNavigationState();
@@ -22,7 +23,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
-      HomeScreen(currentPage: widget.curHome),
+      HomeScreen(currentPage: widget.curHome, prod: widget.name),
       const ProductPage(),
       // const ProductDetailsPage(),
       const FavoritesPage(),

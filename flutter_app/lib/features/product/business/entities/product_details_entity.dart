@@ -3,28 +3,28 @@ import 'package:equatable/equatable.dart';
 class ProductDetailsEntity extends Equatable {
   final String? id;
   final String? product;
-  final double? rating;
-  final String? flavour;
+  final String? dairyPreference;
+  final int? cuppingScore;
+  final String? sensory;
   final String? roast;
   final String? brewMethod;
-  final String? strong;
-  final String? additionalFlavour;
-  final double? price;
-  final String? imageUrl;
-  final int? quantity;
+  final int? price;
+  final String? image;
+  final String? quantity;
   final String? productInfo;
+  final int? v;
 
-  ProductDetailsEntity({
+  const ProductDetailsEntity({
+    required this.dairyPreference,
+    this.cuppingScore,
+    this.sensory,
+    this.image,
+    this.v,
     required this.id,
     required this.product,
-    required this.rating,
-    required this.flavour,
     required this.roast,
     required this.brewMethod,
-    required this.strong,
-    required this.additionalFlavour,
     required this.price,
-    required this.imageUrl,
     required this.quantity,
     required this.productInfo,
   });
@@ -34,16 +34,16 @@ class ProductDetailsEntity extends Equatable {
     return [
       id,
       product,
-      rating,
-      flavour,
       roast,
       brewMethod,
-      strong,
-      additionalFlavour,
       price,
-      imageUrl,
       quantity,
       productInfo,
+      dairyPreference,
+      cuppingScore,
+      sensory,
+      image,
+      v,
     ];
   }
 }

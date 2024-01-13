@@ -41,8 +41,9 @@ class _SkiaSpecialProductsHomeState extends State<SkiaSpecialProductsHome> {
           ));
         }
         int l = state.products!.length;
-        var products = state.products;
 
+        var products = state.products;
+        // logger.i(products![0].product!);
         return Padding(
           padding: const EdgeInsets.only(left: 16),
           child: SizedBox(

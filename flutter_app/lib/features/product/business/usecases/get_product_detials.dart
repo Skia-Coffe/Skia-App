@@ -12,7 +12,7 @@ class GetProductDetialsUseCase
   @override
   Future<DataState<ProductDetailsEntity>> call({String? params}) {
     Logger logger = Logger();
-    logger.i("hi+$params");
+    logger.i("$params");
     return _productsRepository.getProductsDetails(params!);
   }
 }

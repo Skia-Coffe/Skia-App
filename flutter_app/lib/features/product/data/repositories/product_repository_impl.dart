@@ -27,7 +27,6 @@ class ProductsRepositoryImpl implements ProductsRepository {
         // Parse the response body as a List<dynamic>
         List<dynamic> jsonData = json.decode(httpResponse.body);
 
-        // Convert each dynamic element to a QuizModel
         List<ProductModel> products = jsonData
             .map((dynamic data) => ProductModel.fromJson(data))
             .toList();
@@ -57,17 +56,17 @@ class ProductsRepositoryImpl implements ProductsRepository {
   @override
   Future<DataState<ProductDetailsEntity>> getProductsDetails(
       String prod) async {
-    prod = "100%Arabic";
     try {
       String url = "$baseUrl/product/$prod";
       final response = await http
           .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
-      // logger.i(prod);
+      logger.i(prod);
       if (response.statusCode == HttpStatus.ok) {
         Map<String, dynamic>? jsonData = json.decode(response.body);
         logger.i(jsonData);
         if (jsonData != null && jsonData.isNotEmpty) {
-          ProductDetailsModel product = ProductDetailsModel.fromJson(jsonData);
+          ProductDetailsModel product =
+              ProductDetailsModel.fromJson(jsonData['result']);
           return DataSuccess(product);
         } else {
           return DataFailed(
