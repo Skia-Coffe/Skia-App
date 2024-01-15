@@ -38,10 +38,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     Logger logger = Logger();
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+    final h16 = 16 * (h / 844);
+    final h20 = 20 * (h / 844);
+    final h12 = 12 * (h / 844);
+    final h24 = 24 * (h / 844);
+    final h40 = 40 * (h / 844);
+    final h50 = 50 * (h / 844);
+
+    final w16 = 16 * (w / 390);
+    final w20 = 20 * (w / 390);
+    final w10 = 10 * (w / 390);
+    final w12 = 12 * (w / 390);
+    final w14 = 14 * (w / 390);
+    final w8 = 8 * (w / 390);
+    final w24 = 24 * (w / 390);
+    final w18 = 18 * (w / 390);
+
     return Scaffold(
         appBar: AppBar(
           title: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(w8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -81,7 +99,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: w10),
                   child: FloatingActionButton(
                     elevation: 30,
                     onPressed: () {
@@ -89,18 +107,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     },
                     backgroundColor: Colors.white,
                     child: isSelected
-                        ? const Icon(
+                        ? Icon(
                             Icons.favorite,
                             color: textColor,
+                            size: h40,
                           )
                         : const Icon(Icons.favorite_border, color: textColor),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.only(right: w8),
                   child: SizedBox(
                     width: 290 * ((MediaQuery.of(context).size.width) / 390),
-                    height: 50,
+                    height: h50,
                     child: FloatingActionButton(
                       elevation: 40,
                       onPressed: () {
@@ -109,11 +128,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             MaterialPageRoute(
                                 builder: (context) => const CartPage()));
                       },
-                      child: const Text(
+                      child: Text(
                         "Add to Cart",
                         style: TextStyle(
                             color: white,
-                            fontSize: 14,
+                            fontSize: w14,
                             fontWeight: FontWeight.w700),
                       ),
                     ),

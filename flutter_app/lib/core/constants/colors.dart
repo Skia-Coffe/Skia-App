@@ -13,3 +13,4 @@ const Color greyBg = Color(0xFFF8F8F8);
 const Color white = Colors.white;
 const Color black = Colors.black;
 const Color green = Color(0xF00BB838);
+const Color milkbg = Color(0xFFFDD9B1);

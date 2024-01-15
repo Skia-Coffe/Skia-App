@@ -13,3 +13,5 @@ const icBlendBg = "$path/blend_bg.png";
 const imBgCorousel1 = "$path/bg_corousel1.png";
 const imEllipseBg = "$path/ellipse_bg.png";
 const icDp = "$path/dp.jpg";
+const icBrewMedthod = "$path/french_press.png";
+const icMilkBg = "$path/lucide_milk.png";

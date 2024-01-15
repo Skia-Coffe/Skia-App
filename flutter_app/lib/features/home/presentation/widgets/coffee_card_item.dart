@@ -32,8 +32,8 @@ class _CoffeCardItemState extends State<CoffeCardItem> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            const BottomNavigation(curHome: 2)));
+                        builder: (context) => BottomNavigation(
+                            curHome: 2, name: widget.coffeeName)));
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(45, 16, 45, 0),

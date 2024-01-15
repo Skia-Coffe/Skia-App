@@ -69,19 +69,17 @@ class _ViewAllButtonState extends State<ViewAllButton> {
             _showDialogBox();
           },
           style: TextButton.styleFrom(
-              backgroundColor: textColor,
+              backgroundColor: greyBg,
               shadowColor: greyBg,
               elevation: 1,
-              side: const BorderSide(
-                color: greyBg,
-              ),
+              side: const BorderSide(color: textColor, width: 1),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
                 ),
               )),
-          child: const Text("View-All", style: TextStyle(color: white)),
+          child: const Text("View-All", style: TextStyle(color: textColor)),
         ));
   }
 }
