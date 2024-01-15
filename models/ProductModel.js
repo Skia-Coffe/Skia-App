@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   Sensory:{
-    type: String,
+    type: [String],
     required: true,
   },
   Roast:{
@@ -47,6 +47,11 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  Origin:{
+    type: String,
+    required: true,
+  },
+  
   
 });
 

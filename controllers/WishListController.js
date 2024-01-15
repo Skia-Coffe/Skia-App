@@ -4,7 +4,8 @@ const UserWishlist = require("../models/UserWishlistmodel"); // Adjust the impor
 // Get all wishlist items for a specific user
 const getAllWishlistItems = async (req, res) => {
   try {
-    const userId = req.params.userId; // Assuming you pass the user ID as a parameter
+    const userId = req.params.userId;
+     // Assuming you pass the user ID as a parameter
     const wishlistItems = await UserWishlist.find({ userID: userId });
     res.status(200).json(wishlistItems);
   } catch (error) {

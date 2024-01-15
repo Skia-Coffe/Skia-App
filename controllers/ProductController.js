@@ -22,7 +22,8 @@ const createProduct = async (req, res) => {
     price,
     Image,
     Quantity,
-    Product_Info
+    Product_Info,
+    Origin
   } = req.body;
   if (
     !Product ||
@@ -34,7 +35,8 @@ const createProduct = async (req, res) => {
     !price ||
     !Image ||
     !Quantity ||
-    !Product_Info
+    !Product_Info ||
+    !Origin
   ) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
@@ -49,7 +51,8 @@ const createProduct = async (req, res) => {
       price,
       Image,
       Quantity,
-      Product_Info
+      Product_Info,
+      Origin
     });
     res.status(201).json(product);
   } catch (error) {
